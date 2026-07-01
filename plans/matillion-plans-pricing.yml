@@ -1,0 +1,178 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Matillion
+providerId: matillion
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Data Integration
+- ETL
+- ELT
+- Data Pipelines
+- Cloud Data Warehouse
+- Plans
+description: >-
+  Matillion's Data Productivity Cloud uses a credit-based, consumption pricing
+  model. Work executed by the platform (pipeline runs, orchestration, data
+  movement, and AI features) consumes credits drawn from the plan the account
+  is subscribed to. Matillion publishes a Free tier plus Basic, Advanced, and
+  Enterprise tiers that increase the included credit allotment, concurrency,
+  connector coverage, security, and support. The legacy Matillion ETL product
+  was licensed hourly through cloud marketplaces (AWS, Azure, GCP) or via BYOL /
+  annual enterprise agreements. Both the DPC API and the legacy ETL API are
+  included with the underlying subscription and are not separately metered as a
+  distinct API product.
+notes: >-
+  Credit inclusions, per-credit overage rates, and connector/feature gating
+  change frequently; verify against the current Matillion pricing page and the
+  Data Productivity Cloud plan comparison during reconciliation. Legacy
+  Matillion ETL marketplace hourly rates depend on the chosen instance size and
+  cloud provider.
+sources:
+- https://www.matillion.com/pricing
+- https://docs.matillion.com
+- https://www.matillion.com/data-productivity-cloud
+plans:
+- id: matillion-free
+  name: Free
+  type: free
+  description: >-
+    No-cost entry tier to the Data Productivity Cloud with a limited monthly
+    credit allotment, a single environment, and core connectors so teams can
+    build and run pipelines before committing to a paid plan.
+  entries:
+  - label: Included Credits
+    name: included_credits
+    type: limit
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included (limited monthly allotment)
+    userMultiplied: false
+  elements:
+  - name: Data Productivity Cloud Designer
+  - name: Core Connectors
+  - name: Single Environment
+  - name: Community Support
+- id: matillion-basic
+  name: Basic
+  type: usage
+  description: >-
+    Entry paid tier with a larger included credit bundle, additional
+    connectors, and email support. Additional usage is billed per credit
+    consumed beyond the included allotment.
+  entries:
+  - label: Included Credits
+    name: included_credits
+    type: limit
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included bundle, then per-credit overage
+    userMultiplied: false
+  - label: Additional Credits
+    name: overage_credits
+    type: usage
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-credit overage rate (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Pipeline Orchestration
+  - name: Expanded Connector Library
+  - name: Scheduling
+  - name: Email Support
+- id: matillion-advanced
+  name: Advanced
+  type: usage
+  description: >-
+    Higher-throughput tier with more included credits, greater pipeline
+    concurrency, advanced connectors, Git integration, and priority support.
+    Usage above the included allotment is billed per credit.
+  entries:
+  - label: Included Credits
+    name: included_credits
+    type: limit
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: larger included bundle, then per-credit overage
+    userMultiplied: false
+  - label: Additional Credits
+    name: overage_credits
+    type: usage
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-credit overage rate (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Higher Pipeline Concurrency
+  - name: Advanced Connectors
+  - name: Git / Branch Integration
+  - name: Priority Support
+- id: matillion-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Negotiated, committed-consumption agreements with the highest credit
+    volumes, private / customer-hosted Agents, SSO/SAML, advanced security and
+    governance, dedicated support, and custom connector development. Covers
+    both the Data Productivity Cloud and, historically, annual Matillion ETL
+    enterprise licensing. Contact Matillion sales.
+  entries:
+  - label: Committed Credit Volume
+    name: committed_credits
+    type: flat
+    metric: credits
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Committed Consumption
+  - name: Customer-Hosted Agents
+  - name: SSO / SAML and Advanced Governance
+  - name: Dedicated Support and SLAs
+  - name: Custom Connector Development
+- id: matillion-etl-legacy-marketplace
+  name: Matillion ETL (Legacy, Marketplace Hourly / BYOL)
+  type: usage
+  description: >-
+    Legacy Matillion ETL for the customer's cloud data warehouse, launched as a
+    VM instance from AWS, Azure, or GCP marketplaces and billed hourly by
+    instance size, or run under Bring-Your-Own-License / annual enterprise
+    agreements. This product is in maintenance as Matillion steers new customers
+    to the Data Productivity Cloud.
+  entries:
+  - label: Instance Hour
+    name: instance_hour
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: hourly by instance size (see cloud marketplace)
+    userMultiplied: false
+  elements:
+  - name: Matillion ETL for Snowflake / Redshift / BigQuery / Synapse / Delta Lake
+  - name: Marketplace Hourly or BYOL
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

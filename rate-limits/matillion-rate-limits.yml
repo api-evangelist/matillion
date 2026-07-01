@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Matillion
+providerId: matillion
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Data Integration
+- ETL
+- ELT
+- Data Pipelines
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Data Productivity Cloud API is a control-plane API for managing projects,
+  environments, pipelines, executions, schedules, and Agents. Matillion applies
+  standard cloud-service throttling and returns HTTP 429 when request volume is
+  exceeded; concurrency of actual pipeline execution is governed by the account
+  plan (included credits and concurrent-pipeline limits) rather than by a
+  published per-second request quota. The legacy Matillion ETL REST API runs on
+  the customer's own instance, so its throughput is bounded by that instance's
+  size and configuration rather than by a provider-enforced quota. Specific
+  numeric limits are not published as a single reconciled figure.
+notes: >-
+  Confirm current per-endpoint throttling, OAuth token issuance limits, and
+  concurrent-pipeline / concurrent-execution ceilings per plan in the Matillion
+  Data Productivity Cloud documentation during reconciliation. Legacy ETL limits
+  are effectively self-imposed by the instance the customer runs.
+sources:
+- https://docs.matillion.com
+- https://www.matillion.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: DPC API Request Throttling
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Control-plane requests are throttled and return HTTP 429 when exceeded.
+- name: OAuth Token Issuance
+  scope: client
+  metric: requests
+  limit: see provider documentation
+  notes: Client-credentials token requests are subject to standard issuance throttling; cache and reuse bearer tokens until expiry.
+- name: Concurrent Pipeline Executions
+  scope: account
+  metric: executions
+  limit: governed by plan
+  notes: Number of pipelines that can run at once is bounded by the subscribed plan tier, not by a request-rate quota.
+- name: Included Monthly Credits
+  scope: account
+  metric: credits
+  limit: governed by plan
+  notes: Pipeline work consumes credits from the plan allotment; exhausting credits limits further execution until overage or renewal.
+- name: Legacy ETL API (Instance-Bound)
+  scope: instance
+  metric: requests
+  limit: instance-dependent
+  notes: The legacy Matillion ETL REST API runs on the customer's own VM; throughput is limited by that instance's size, not a provider quota.
+policies:
+- name: Plan-Governed Concurrency
+  description: Pipeline concurrency and monthly credit inclusions rise with the Basic, Advanced, and Enterprise tiers.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on HTTP 429 and reuse cached OAuth bearer tokens until they expire.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

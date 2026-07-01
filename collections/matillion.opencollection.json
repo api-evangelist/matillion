@@ -1,0 +1,460 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DPC Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Productivity Cloud projects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects"
+          },
+          "docs": "List Data Productivity Cloud projects."
+        },
+        {
+          "info": {
+            "name": "Create a Data Productivity Cloud project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create a Data Productivity Cloud project."
+        },
+        {
+          "info": {
+            "name": "Delete a Data Productivity Cloud project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}"
+          },
+          "docs": "Delete a Data Productivity Cloud project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DPC Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List environments for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/environments"
+          },
+          "docs": "List environments for a project."
+        },
+        {
+          "info": {
+            "name": "Create an environment for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/environments",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\",\n  \"agentId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create an environment for a project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DPC Pipeline Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Launch a pipeline execution for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/pipeline-executions",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"pipelineName\": \"<string>\",\n  \"environmentName\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Launch a pipeline execution for a project."
+        },
+        {
+          "info": {
+            "name": "List pipeline executions, filtered by project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/pipeline-executions?projectId={projectId}"
+          },
+          "docs": "List pipeline executions, filtered by project."
+        },
+        {
+          "info": {
+            "name": "Get the status of a pipeline execution.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/pipeline-executions/{id}/status"
+          },
+          "docs": "Get the status of a pipeline execution (poll to observe progress)."
+        },
+        {
+          "info": {
+            "name": "Get the steps of a pipeline execution.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/pipeline-executions/{id}/steps"
+          },
+          "docs": "Get the steps of a pipeline execution."
+        },
+        {
+          "info": {
+            "name": "Cancel a running pipeline execution.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/pipeline-executions/{id}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"status\": \"CANCELLED\"\n}"
+            }
+          },
+          "docs": "Cancel a running pipeline execution (body status CANCELLED)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DPC Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List schedules for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/schedules"
+          },
+          "docs": "List schedules for a project."
+        },
+        {
+          "info": {
+            "name": "Create a schedule for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/schedules",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"pipelineName\": \"<string>\",\n  \"environmentName\": \"<string>\",\n  \"enabled\": true\n}"
+            }
+          },
+          "docs": "Create a schedule for a project."
+        },
+        {
+          "info": {
+            "name": "Get a schedule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/schedules/{scheduleId}"
+          },
+          "docs": "Get a schedule."
+        },
+        {
+          "info": {
+            "name": "Update a schedule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/schedules/{scheduleId}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"enabled\": false\n}"
+            }
+          },
+          "docs": "Update a schedule."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/{projectId}/schedules/{scheduleId}"
+          },
+          "docs": "Delete a schedule."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DPC Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Productivity Cloud Agents.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents"
+          },
+          "docs": "List Data Productivity Cloud Agents."
+        },
+        {
+          "info": {
+            "name": "Register a Data Productivity Cloud Agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Register a Data Productivity Cloud Agent."
+        },
+        {
+          "info": {
+            "name": "Get a Data Productivity Cloud Agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents/{agentId}"
+          },
+          "docs": "Get a Data Productivity Cloud Agent."
+        },
+        {
+          "info": {
+            "name": "Get an Agent's credentials.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents/{agentId}/credentials"
+          },
+          "docs": "Get an Agent's credentials."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ETL Groups & Projects (legacy)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Matillion ETL groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/group"
+          },
+          "docs": "List Matillion ETL groups (legacy, HTTP Basic auth)."
+        },
+        {
+          "info": {
+            "name": "Get a Matillion ETL group by name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/group/name/{group}"
+          },
+          "docs": "Get a Matillion ETL group by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Get a project by name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/group/name/{group}/project/name/{project}"
+          },
+          "docs": "Get a project by name (legacy)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ETL Jobs & Runs (legacy)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run an orchestration/transformation job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/run?environmentName={env}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"scalarVariables\": {},\n  \"gridVariables\": {}\n}"
+            }
+          },
+          "docs": "Run a job (legacy). Returns a success flag and a task id for polling."
+        },
+        {
+          "info": {
+            "name": "Validate a job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/validate"
+          },
+          "docs": "Validate a job (legacy)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ETL Tasks (legacy)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List running tasks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/task/running"
+          },
+          "docs": "List running tasks (legacy)."
+        },
+        {
+          "info": {
+            "name": "Get a task by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/task/id/{taskId}"
+          },
+          "docs": "Get a task by id (legacy)."
+        },
+        {
+          "info": {
+            "name": "Cancel a task by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/rest/v1/task/id/{taskId}/cancel"
+          },
+          "docs": "Cancel a task by id (legacy)."
+        },
+        {
+          "info": {
+            "name": "Page task history.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/task/history?since={since}&limit={limit}&offset={offset}"
+          },
+          "docs": "Page task history (legacy)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ETL Schedules (legacy)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a schedule by name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/rest/v1/schedule/name/{schedule}"
+          },
+          "docs": "Get a schedule by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Update a schedule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/rest/v1/schedule/name/{schedule}/update"
+          },
+          "docs": "Update a schedule (legacy)."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/rest/v1/schedule/name/{schedule}/delete"
+          },
+          "docs": "Delete a schedule (legacy)."
+        }
+      ]
+    }
+  ]
+}

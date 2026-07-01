@@ -1,0 +1,111 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Matillion
+providerId: matillion
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Data Integration
+- ETL
+- ELT
+- Data Pipelines
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Matillion Data Productivity Cloud spend. Matillion bills a
+  credit-based, consumption model: pipeline orchestration and transformation
+  runs, data movement, and AI-assisted features draw credits from a plan
+  allotment, with per-credit overage above the included bundle. Legacy
+  Matillion ETL was billed as marketplace instance-hours (AWS / Azure / GCP) or
+  annual license. Note that Matillion credits are separate from — and additive
+  to — the compute cost of the underlying cloud data warehouse (Snowflake,
+  Databricks, Redshift, BigQuery, Synapse) that Matillion pushes work down into.
+notes: >-
+  Credit inclusions and per-credit rates change; verify against the current
+  Matillion pricing page during reconciliation. Total cost of ownership must
+  account for both Matillion credits and the downstream warehouse compute the
+  pipelines consume.
+sources:
+- https://www.matillion.com/pricing
+- https://docs.matillion.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Matillion
+serviceCategory: Analytics and Data Integration
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Matillion Data Productivity Cloud
+  ServiceCategory: Analytics and Data Integration
+  ProviderName: Matillion
+  PublisherName: Matillion
+  InvoiceIssuerName: Matillion
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: credits_consumed
+  description: Platform credits consumed running pipelines, orchestration, and transformations, drawn from the plan allotment.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+  - environment
+  - pipeline
+- name: included_credits
+  description: Monthly credit allotment included with the subscribed plan.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: overage_credits
+  description: Credits consumed beyond the included allotment, billed at the per-credit overage rate.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: pipeline_executions
+  description: Count of pipeline executions (runs) launched via schedule, trigger, or API.
+  unit: executions
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+  - pipeline
+- name: etl_instance_hours
+  description: Legacy Matillion ETL marketplace instance-hours (AWS / Azure / GCP), billed by instance size.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - account
+  - cloud
+  - instance_size
+principles:
+- name: Visibility
+  description: Track credit consumption per project, environment, and pipeline in the Data Productivity Cloud usage views; correlate with downstream warehouse spend.
+- name: Allocation
+  description: Map projects and environments to teams and cost centers so credit burn is attributable.
+- name: Optimization
+  description: Push heavy transformation down to the warehouse (ELT), consolidate redundant pipeline runs, tune schedules to avoid idle re-runs, and right-size the plan to actual credit usage.
+- name: Accountability
+  description: Assign owners per project; review monthly credit consumption and overage against the plan allotment and downstream warehouse cost.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

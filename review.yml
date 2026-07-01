@@ -1,0 +1,70 @@
+aid: matillion
+name: Matillion
+review:
+  question: Does Matillion expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per current API Evangelist scope, HTTP Server-Sent Events (SSE) is
+    in-scope for AsyncAPI modeling and WebSocket is the primary event-driven
+    surface of interest. Matillion documents neither a WebSocket nor an SSE
+    streaming surface for its public APIs. Both the Data Productivity Cloud
+    (DPC) API and the legacy Matillion ETL API are request/response REST over
+    HTTPS. Asynchronous pipeline execution is handled by polling: the client
+    launches an execution and then polls a status endpoint. No AsyncAPI
+    document was authored because there is no push / streaming transport to
+    model.
+findings:
+  summary: |
+    Matillion does not publish a documented public WebSocket API. The Data
+    Productivity Cloud API is a REST control plane (OAuth2 client-credentials
+    bearer auth) for managing projects, environments, branches, pipelines,
+    pipeline executions, schedules, and Agents, hosted at regional endpoints
+    (eu1.api.matillion.com / us1.api.matillion.com). The legacy Matillion ETL
+    API is a REST API served from the customer's own Matillion ETL instance
+    (Basic auth) for groups, projects, versions, jobs, tasks, and environment
+    variables. In both surfaces, long-running pipeline / job execution is
+    asynchronous but observed by polling a status endpoint, not by a
+    bidirectional or server-push transport. No realtime WebSocket (ws:// or
+    wss://) or SSE endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{region}.api.matillion.com
+      documented: true
+      note: Data Productivity Cloud control-plane API.
+    - protocol: REST
+      scheme: https
+      baseURL: https://{instance-host}/rest/v1
+      documented: true
+      note: Legacy Matillion ETL instance-hosted API (also /rest/v0).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for the DPC API or the legacy Matillion ETL API as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming surface is documented; execution progress is retrieved by polling status endpoints.
+  asyncPattern:
+    style: polling
+    note: Pipeline / job executions are launched via POST and their state is retrieved via GET status endpoints; there is no push or streaming channel.
+sources:
+  - url: https://docs.matillion.com
+    type: Documentation
+    note: Documents REST APIs for the Data Productivity Cloud and legacy Matillion ETL; no WebSocket or SSE surface.
+  - url: https://www.matillion.com/data-productivity-cloud
+    type: Documentation
+    note: Product overview; API is a REST control plane.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE protocol surface exists. Asynchronous execution is
+    handled by request/response plus polling, which is fully expressed by the
+    REST OpenAPI. No AsyncAPI document was authored.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

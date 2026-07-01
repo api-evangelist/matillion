@@ -1,0 +1,197 @@
+aid: matillion
+url: https://raw.githubusercontent.com/api-evangelist/matillion/refs/heads/main/apis.yml
+name: Matillion
+kind: company
+description: Matillion is a data integration and transformation (ETL/ELT) company whose
+  Data Productivity Cloud (DPC) lets teams build, orchestrate, and schedule data pipelines
+  against cloud data warehouses. The DPC API is an OAuth2-secured REST control plane
+  for projects, environments, pipeline executions, schedules, and Agents, while the
+  legacy instance-hosted Matillion ETL API exposes groups, projects, versions, jobs,
+  tasks, and schedules over HTTP Basic auth.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Data Integration
+- ETL
+- ELT
+- Data Pipelines
+- Cloud Data Warehouse
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: matillion:dpc-projects
+  name: DPC Projects
+  tags:
+  - Projects
+  - Data Productivity Cloud
+  - Control Plane
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: List, create, and delete Data Productivity Cloud projects via the regional
+    DPC control plane (eu1.api.matillion.com/dpc or us1.api.matillion.com/dpc), secured
+    with an OAuth2 client-credentials Bearer JWT. Branches are managed in the UI only
+    and are not exposed as a public API.
+- aid: matillion:dpc-environments
+  name: DPC Environments
+  tags:
+  - Environments
+  - Data Productivity Cloud
+  - Warehouse Connections
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: List and create the environments (warehouse connection contexts) that
+    belong to a Data Productivity Cloud project, on the OAuth2-secured DPC control
+    plane.
+- aid: matillion:dpc-pipeline-executions
+  name: DPC Pipeline Executions
+  tags:
+  - Pipeline Executions
+  - Data Productivity Cloud
+  - Orchestration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Launch pipeline executions, list executions for a project, retrieve
+    execution status and step detail, and cancel a running execution (PATCH status
+    CANCELLED). Long-running execution is observed by polling the status endpoint,
+    not by a push transport.
+- aid: matillion:dpc-schedules
+  name: DPC Schedules
+  tags:
+  - Schedules
+  - Data Productivity Cloud
+  - Automation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Create, list, read, update, and delete the schedules that trigger pipeline
+    executions for a Data Productivity Cloud project, on the OAuth2-secured DPC control
+    plane.
+- aid: matillion:dpc-agents
+  name: DPC Agents
+  tags:
+  - Agents
+  - Data Productivity Cloud
+  - Hybrid Runtime
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: List and register Data Productivity Cloud Agents (the hybrid/customer-hosted
+    runtime that executes pipelines), retrieve an Agent, and read its credentials,
+    on the OAuth2-secured DPC control plane.
+- aid: matillion:etl-groups-projects
+  name: ETL Groups & Projects (legacy)
+  tags:
+  - Groups
+  - Projects
+  - Matillion ETL
+  - Legacy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Manage groups, projects, and versions on the legacy instance-hosted
+    Matillion ETL API (base https://{instance}/rest/v1, HTTP Basic auth) - list, read,
+    export, import, create, and delete groups, projects, and version artifacts.
+- aid: matillion:etl-jobs-runs
+  name: ETL Jobs & Runs (legacy)
+  tags:
+  - Jobs
+  - Runs
+  - Matillion ETL
+  - Legacy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Run and validate orchestration/transformation jobs on the legacy instance-hosted
+    Matillion ETL API (base https://{instance}/rest/v1, HTTP Basic auth); run accepts
+    scalar and grid variables and returns a task id for polling.
+- aid: matillion:etl-tasks
+  name: ETL Tasks (legacy)
+  tags:
+  - Tasks
+  - Monitoring
+  - Matillion ETL
+  - Legacy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Monitor and control task execution on the legacy instance-hosted Matillion
+    ETL API (base https://{instance}/rest/v1, HTTP Basic auth) - list running tasks,
+    read a task by id, cancel a task, and page task history.
+- aid: matillion:etl-schedules
+  name: ETL Schedules (legacy)
+  tags:
+  - Schedules
+  - Automation
+  - Matillion ETL
+  - Legacy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.matillion.com
+  baseURL: https://eu1.api.matillion.com/dpc
+  properties:
+  - url: https://docs.matillion.com
+    type: Documentation
+  - url: openapi/matillion-openapi.yml
+    type: OpenAPI
+  description: Read, export, import, update, and delete schedules on the legacy instance-hosted
+    Matillion ETL API (base https://{instance}/rest/v1, HTTP Basic auth).
+common:
+- type: GitHubOrganization
+  url: https://github.com/matillion
+- type: LinkedIn
+  url: https://www.linkedin.com/company/matillion
+- type: Website
+  url: https://www.matillion.com
+- type: Documentation
+  url: https://docs.matillion.com
+- type: Plans
+  url: plans/matillion-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/matillion-rate-limits.yml
+- type: FinOps
+  url: finops/matillion-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

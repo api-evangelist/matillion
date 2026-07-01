@@ -1,0 +1,534 @@
+{
+  "info": {
+    "name": "Matillion API",
+    "description": {
+      "content": "Data Productivity Cloud (DPC) OAuth2 REST control plane and legacy instance-hosted Matillion ETL (HTTP Basic) API. Set {{baseUrl}} to https://eu1.api.matillion.com/dpc or https://us1.api.matillion.com/dpc for DPC, and {{etlBaseUrl}} to https://{instance}/rest/v1 for the legacy ETL API.",
+      "type": "text/plain"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://eu1.api.matillion.com/dpc"
+    },
+    {
+      "key": "etlBaseUrl",
+      "value": "https://your-matillion-etl-instance/rest/v1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "DPC Projects",
+      "item": [
+        {
+          "name": "List Data Productivity Cloud projects.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects"]
+            },
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ]
+          },
+          "response": []
+        },
+        {
+          "name": "Create a Data Productivity Cloud project.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Data Productivity Cloud project.",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DPC Environments",
+      "item": [
+        {
+          "name": "List environments for a project.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/environments",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "environments"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create an environment for a project.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/environments",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "environments"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"agentId\": \"<string>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DPC Pipeline Executions",
+      "item": [
+        {
+          "name": "Launch a pipeline execution for a project.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/pipeline-executions",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "pipeline-executions"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pipelineName\": \"<string>\",\n  \"environmentName\": \"<string>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List pipeline executions, filtered by project.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/pipeline-executions?projectId={{projectId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "pipeline-executions"],
+              "query": [
+                { "key": "projectId", "value": "{{projectId}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get the status of a pipeline execution.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/pipeline-executions/{{id}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "pipeline-executions", "{{id}}", "status"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get the steps of a pipeline execution.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/pipeline-executions/{{id}}/steps",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "pipeline-executions", "{{id}}", "steps"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel a running pipeline execution.",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/pipeline-executions/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "pipeline-executions", "{{id}}"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CANCELLED\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DPC Schedules",
+      "item": [
+        {
+          "name": "List schedules for a project.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/schedules",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "schedules"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a schedule for a project.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/schedules",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "schedules"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"pipelineName\": \"<string>\",\n  \"environmentName\": \"<string>\",\n  \"enabled\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a schedule.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/schedules/{{scheduleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "schedules", "{{scheduleId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a schedule.",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/schedules/{{scheduleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "schedules", "{{scheduleId}}"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a schedule.",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/v1/projects/{{projectId}}/schedules/{{scheduleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "projects", "{{projectId}}", "schedules", "{{scheduleId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DPC Agents",
+      "item": [
+        {
+          "name": "List Data Productivity Cloud Agents.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/agents",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "agents"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register a Data Productivity Cloud Agent.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/v1/agents",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "agents"]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a Data Productivity Cloud Agent.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/agents/{{agentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "agents", "{{agentId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get an Agent's credentials.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/agents/{{agentId}}/credentials",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "agents", "{{agentId}}", "credentials"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ETL Groups & Projects (legacy)",
+      "item": [
+        {
+          "name": "List Matillion ETL groups.",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{etlUser}}", "type": "string" },
+                { "key": "password", "value": "{{etlPassword}}", "type": "string" }
+              ]
+            },
+            "url": {
+              "raw": "{{etlBaseUrl}}/group",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["group"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a Matillion ETL group by name.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/group/name/{{group}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["group", "name", "{{group}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a project by name.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/group/name/{{group}}/project/name/{{project}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["group", "name", "{{group}}", "project", "name", "{{project}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ETL Jobs & Runs (legacy)",
+      "item": [
+        {
+          "name": "Run an orchestration/transformation job.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{etlBaseUrl}}/group/name/{{group}}/project/name/{{project}}/version/name/{{version}}/job/name/{{job}}/run?environmentName={{env}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["group", "name", "{{group}}", "project", "name", "{{project}}", "version", "name", "{{version}}", "job", "name", "{{job}}", "run"],
+              "query": [
+                { "key": "environmentName", "value": "{{env}}" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scalarVariables\": {},\n  \"gridVariables\": {}\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate a job.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{etlBaseUrl}}/group/name/{{group}}/project/name/{{project}}/version/name/{{version}}/job/name/{{job}}/validate",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["group", "name", "{{group}}", "project", "name", "{{project}}", "version", "name", "{{version}}", "job", "name", "{{job}}", "validate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ETL Tasks (legacy)",
+      "item": [
+        {
+          "name": "List running tasks.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/task/running",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["task", "running"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a task by id.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/task/id/{{taskId}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["task", "id", "{{taskId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel a task by id.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{etlBaseUrl}}/task/id/{{taskId}}/cancel",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["task", "id", "{{taskId}}", "cancel"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Page task history.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/task/history?since={{since}}&limit={{limit}}&offset={{offset}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["task", "history"],
+              "query": [
+                { "key": "since", "value": "{{since}}" },
+                { "key": "limit", "value": "{{limit}}" },
+                { "key": "offset", "value": "{{offset}}" }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ETL Schedules (legacy)",
+      "item": [
+        {
+          "name": "Get a schedule by name.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{etlBaseUrl}}/schedule/name/{{schedule}}",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["schedule", "name", "{{schedule}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a schedule.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{etlBaseUrl}}/schedule/name/{{schedule}}/update",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["schedule", "name", "{{schedule}}", "update"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a schedule.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{etlBaseUrl}}/schedule/name/{{schedule}}/delete",
+              "host": ["{{etlBaseUrl}}"],
+              "path": ["schedule", "name", "{{schedule}}", "delete"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
