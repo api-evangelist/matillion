@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/matillion-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: dpc_oauth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+    scopes: 0
+  description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client
+    id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com,
+    then send it as Authorization: Bearer <JWT>.'
+  sources:
+  - openapi/matillion-openapi.yml
+- name: etl_basic
+  type: http
+  scheme: basic
+  description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.
+  sources:
+  - openapi/matillion-openapi.yml
