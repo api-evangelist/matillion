@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: searched
+source: openapi/matillion-openapi.yml
+docs: https://docs.maia.ai/docs/api-reference/maia-api-authentication
+schemes:
+- name: dpc_oauth
+  source: openapi/matillion-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+  description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client
+    id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com,
+    then send it as Authorization: Bearer <JWT>.'
+scopes:
+- scope: pipeline-execution
+  description: The only scope value documented for the Data Productivity Cloud (Maia)
+    API; it appears in the client-credentials token response. Callers do not request
+    scopes - effective permissions are governed by the account role assigned to the
+    API credential set, plus project and environment roles for non-Super Admin credentials.
+  sources:
+  - https://docs.maia.ai/docs/api-reference/maia-api-authentication
+note: Matillion does not publish a scopes catalog; API access is permissioned via
+  roles on API credentials (account, project, and environment roles), and the token
+  response's scope is fixed at pipeline-execution (https://docs.maia.ai/docs/api-reference/maia-api-authentication).

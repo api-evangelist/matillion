@@ -178,6 +178,8 @@ apis:
   description: Read, export, import, update, and delete schedules on the legacy instance-hosted
     Matillion ETL API (base https://{instance}/rest/v1, HTTP Basic auth).
 common:
+- type: OAuthScopes
+  url: scopes/matillion-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/matillion
 - type: LinkedIn
@@ -192,6 +194,8 @@ common:
   url: rate-limits/matillion-rate-limits.yml
 - type: FinOps
   url: finops/matillion-finops.yml
+- url: https://www.matillion.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
