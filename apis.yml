@@ -178,6 +178,8 @@ apis:
   description: Read, export, import, update, and delete schedules on the legacy instance-hosted
     Matillion ETL API (base https://{instance}/rest/v1, HTTP Basic auth).
 common:
+- type: AgenticAccess
+  url: agentic-access/matillion-agentic-access.yml
 - type: DomainSecurity
   url: security/matillion-domain-security.yml
 - type: Authentication
