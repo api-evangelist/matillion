@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: Matillion DPC Agents ETL Tasks API
+  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+- url: https://eu1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (EU region).
+- url: https://us1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (US region).
+- url: https://{instance}/rest/v1
+  description: Legacy Matillion ETL instance-hosted API. Served from the customer's own Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with your instance host (also exposes /rest/v0).
+  variables:
+    instance:
+      default: your-matillion-etl-instance
+      description: Host of the customer-operated Matillion ETL instance.
+tags:
+- name: ETL Tasks
+  description: Legacy Matillion ETL task monitoring and control.
+paths:
+  /rest/v1/task/running:
+    get:
+      operationId: listEtlRunningTasks
+      tags:
+      - ETL Tasks
+      summary: List running tasks (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      responses:
+        '200':
+          description: A list of running tasks.
+  /rest/v1/task/id/{taskId}:
+    get:
+      operationId: getEtlTask
+      tags:
+      - ETL Tasks
+      summary: Get a task by id (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: The task.
+  /rest/v1/task/id/{taskId}/cancel:
+    post:
+      operationId: cancelEtlTask
+      tags:
+      - ETL Tasks
+      summary: Cancel a task by id (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Cancel result.
+  /rest/v1/task/history:
+    get:
+      operationId: listEtlTaskHistory
+      tags:
+      - ETL Tasks
+      summary: Page task history (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - in: query
+        name: since
+        schema:
+          type: string
+        description: Return tasks since this timestamp.
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Maximum number of tasks to return.
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: Offset into the history for pagination.
+      responses:
+        '200':
+          description: A page of task history.
+components:
+  parameters:
+    TaskId:
+      in: path
+      name: taskId
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL task id.
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com, then send it as Authorization: Bearer <JWT>.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.

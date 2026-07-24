@@ -1,0 +1,327 @@
+openapi: 3.0.1
+info:
+  title: Matillion DPC Agents ETL Groups & Projects API
+  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+- url: https://eu1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (EU region).
+- url: https://us1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (US region).
+- url: https://{instance}/rest/v1
+  description: Legacy Matillion ETL instance-hosted API. Served from the customer's own Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with your instance host (also exposes /rest/v0).
+  variables:
+    instance:
+      default: your-matillion-etl-instance
+      description: Host of the customer-operated Matillion ETL instance.
+tags:
+- name: ETL Groups & Projects
+  description: Legacy Matillion ETL groups, projects, and versions.
+paths:
+  /rest/v1/group:
+    get:
+      operationId: listEtlGroups
+      tags:
+      - ETL Groups & Projects
+      summary: List Matillion ETL groups (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      responses:
+        '200':
+          description: A list of groups.
+    post:
+      operationId: importEtlGroup
+      tags:
+      - ETL Groups & Projects
+      summary: Import a Matillion ETL group (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Import result.
+  /rest/v1/group/name/{group}:
+    get:
+      operationId: getEtlGroup
+      tags:
+      - ETL Groups & Projects
+      summary: Get a Matillion ETL group by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: The group.
+  /rest/v1/group/name/{group}/export:
+    get:
+      operationId: exportEtlGroup
+      tags:
+      - ETL Groups & Projects
+      summary: Export a Matillion ETL group by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: The exported group.
+  /rest/v1/group/name/{group}/project:
+    get:
+      operationId: listEtlProjects
+      tags:
+      - ETL Groups & Projects
+      summary: List projects in a group (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: A list of projects.
+  /rest/v1/group/name/{group}/project/name/{project}:
+    get:
+      operationId: getEtlProject
+      tags:
+      - ETL Groups & Projects
+      summary: Get a project by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: The project.
+  /rest/v1/group/name/{group}/project/name/{project}/export:
+    get:
+      operationId: exportEtlProject
+      tags:
+      - ETL Groups & Projects
+      summary: Export a project by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: The exported project.
+  /rest/v1/group/name/{group}/project/name/{project}/delete:
+    post:
+      operationId: deleteEtlProject
+      tags:
+      - ETL Groups & Projects
+      summary: Delete a project by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: Delete result.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}:
+    get:
+      operationId: getEtlVersion
+      tags:
+      - ETL Groups & Projects
+      summary: Get a version by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: The version.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/export:
+    get:
+      operationId: exportEtlVersion
+      tags:
+      - ETL Groups & Projects
+      summary: Export a version by name (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: The exported version.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/orchestration:
+    get:
+      operationId: listEtlOrchestrationJobs
+      tags:
+      - ETL Groups & Projects
+      summary: List orchestration jobs in a version (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: A list of orchestration jobs.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/transformation:
+    get:
+      operationId: listEtlTransformationJobs
+      tags:
+      - ETL Groups & Projects
+      summary: List transformation jobs in a version (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: A list of transformation jobs.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/create:
+    post:
+      operationId: createEtlVersion
+      tags:
+      - ETL Groups & Projects
+      summary: Create a version (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: Create result.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/delete:
+    post:
+      operationId: deleteEtlVersion
+      tags:
+      - ETL Groups & Projects
+      summary: Delete a version (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: Delete result.
+components:
+  parameters:
+    VersionName:
+      in: path
+      name: version
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL version name.
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
+    GroupName:
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL group name.
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com, then send it as Authorization: Bearer <JWT>.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.

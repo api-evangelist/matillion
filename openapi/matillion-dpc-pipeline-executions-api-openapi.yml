@@ -1,0 +1,215 @@
+openapi: 3.0.1
+info:
+  title: Matillion DPC Agents DPC Pipeline Executions API
+  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+- url: https://eu1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (EU region).
+- url: https://us1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (US region).
+- url: https://{instance}/rest/v1
+  description: Legacy Matillion ETL instance-hosted API. Served from the customer's own Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with your instance host (also exposes /rest/v0).
+  variables:
+    instance:
+      default: your-matillion-etl-instance
+      description: Host of the customer-operated Matillion ETL instance.
+tags:
+- name: DPC Pipeline Executions
+  description: Launch, inspect, and cancel Data Productivity Cloud pipeline executions.
+paths:
+  /v1/projects/{projectId}/pipeline-executions:
+    post:
+      operationId: createPipelineExecution
+      tags:
+      - DPC Pipeline Executions
+      summary: Launch a pipeline execution for a project.
+      security:
+      - dpc_oauth: []
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PipelineExecutionRequest'
+      responses:
+        '202':
+          description: Pipeline execution accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecution'
+  /v1/pipeline-executions:
+    get:
+      operationId: listPipelineExecutions
+      tags:
+      - DPC Pipeline Executions
+      summary: List pipeline executions, filtered by project.
+      security:
+      - dpc_oauth: []
+      parameters:
+      - in: query
+        name: projectId
+        required: true
+        schema:
+          type: string
+        description: The project whose executions to list.
+      responses:
+        '200':
+          description: A list of pipeline executions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionList'
+  /v1/projects/{projectId}/pipeline-executions/{id}/status:
+    get:
+      operationId: getPipelineExecutionStatus
+      tags:
+      - DPC Pipeline Executions
+      summary: Get the status of a pipeline execution (poll to observe progress).
+      security:
+      - dpc_oauth: []
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: The current execution status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionStatus'
+  /v1/projects/{projectId}/pipeline-executions/{id}/steps:
+    get:
+      operationId: getPipelineExecutionSteps
+      tags:
+      - DPC Pipeline Executions
+      summary: Get the steps of a pipeline execution.
+      security:
+      - dpc_oauth: []
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: The steps of the execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionSteps'
+  /v1/projects/{projectId}/pipeline-executions/{id}:
+    patch:
+      operationId: cancelPipelineExecution
+      tags:
+      - DPC Pipeline Executions
+      summary: Cancel a running pipeline execution (body status CANCELLED).
+      security:
+      - dpc_oauth: []
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/ExecutionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - CANCELLED
+              required:
+              - status
+      responses:
+        '200':
+          description: The updated execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecution'
+components:
+  schemas:
+    PipelineExecutionRequest:
+      type: object
+      properties:
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - pipelineName
+      - environmentName
+    PipelineExecution:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        status:
+          type: string
+    PipelineExecutionStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
+    PipelineExecutionList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineExecution'
+    PipelineExecutionSteps:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
+    ExecutionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: The pipeline execution id.
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com, then send it as Authorization: Bearer <JWT>.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.

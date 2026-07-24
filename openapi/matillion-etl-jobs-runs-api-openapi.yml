@@ -1,0 +1,149 @@
+openapi: 3.0.1
+info:
+  title: Matillion DPC Agents ETL Jobs & Runs API
+  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+- url: https://eu1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (EU region).
+- url: https://us1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (US region).
+- url: https://{instance}/rest/v1
+  description: Legacy Matillion ETL instance-hosted API. Served from the customer's own Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with your instance host (also exposes /rest/v0).
+  variables:
+    instance:
+      default: your-matillion-etl-instance
+      description: Host of the customer-operated Matillion ETL instance.
+tags:
+- name: ETL Jobs & Runs
+  description: Legacy Matillion ETL job execution and validation.
+paths:
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/run:
+    post:
+      operationId: runEtlJob
+      tags:
+      - ETL Jobs & Runs
+      summary: Run an orchestration/transformation job (legacy).
+      description: Launches a job run. The JSON body may supply scalarVariables and gridVariables. Returns a success flag and a task id, which is then polled via the tasks endpoints.
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      - $ref: '#/components/parameters/JobName'
+      - in: query
+        name: environmentName
+        required: true
+        schema:
+          type: string
+        description: The environment to run the job against.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EtlJobRunRequest'
+      responses:
+        '200':
+          description: The job run result (success flag and task id).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtlJobRunResponse'
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/validate:
+    post:
+      operationId: validateEtlJob
+      tags:
+      - ETL Jobs & Runs
+      summary: Validate a job (legacy).
+      servers:
+      - url: https://{instance}
+        variables:
+          instance:
+            default: your-matillion-etl-instance
+      security:
+      - etl_basic: []
+      parameters:
+      - $ref: '#/components/parameters/GroupName'
+      - $ref: '#/components/parameters/ProjectName'
+      - $ref: '#/components/parameters/VersionName'
+      - $ref: '#/components/parameters/JobName'
+      responses:
+        '200':
+          description: The validation result.
+components:
+  schemas:
+    EtlJobRunResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        id:
+          type: integer
+          description: The task id to poll via the tasks endpoints.
+    EtlJobRunRequest:
+      type: object
+      properties:
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+        gridVariables:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+  parameters:
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
+    VersionName:
+      in: path
+      name: version
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL version name.
+    GroupName:
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL group name.
+    JobName:
+      in: path
+      name: job
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL job name.
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com, then send it as Authorization: Bearer <JWT>.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.

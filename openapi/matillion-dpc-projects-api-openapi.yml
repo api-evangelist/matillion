@@ -1,0 +1,119 @@
+openapi: 3.0.1
+info:
+  title: Matillion DPC Agents DPC Projects API
+  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+- url: https://eu1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (EU region).
+- url: https://us1.api.matillion.com/dpc
+  description: Data Productivity Cloud control plane (US region).
+- url: https://{instance}/rest/v1
+  description: Legacy Matillion ETL instance-hosted API. Served from the customer's own Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with your instance host (also exposes /rest/v0).
+  variables:
+    instance:
+      default: your-matillion-etl-instance
+      description: Host of the customer-operated Matillion ETL instance.
+tags:
+- name: DPC Projects
+  description: Data Productivity Cloud projects.
+paths:
+  /v1/projects:
+    get:
+      operationId: listProjects
+      tags:
+      - DPC Projects
+      summary: List Data Productivity Cloud projects.
+      security:
+      - dpc_oauth: []
+      responses:
+        '200':
+          description: A list of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+    post:
+      operationId: createProject
+      tags:
+      - DPC Projects
+      summary: Create a Data Productivity Cloud project.
+      security:
+      - dpc_oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+      responses:
+        '201':
+          description: The created project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+  /v1/projects/{projectId}:
+    delete:
+      operationId: deleteProject
+      tags:
+      - DPC Projects
+      summary: Delete a Data Productivity Cloud project.
+      security:
+      - dpc_oauth: []
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project deleted.
+components:
+  schemas:
+    ProjectCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - name
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ProjectList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: 'Data Productivity Cloud OAuth2 client-credentials flow. Exchange your client id and secret for a Bearer JWT at the token URL, requesting the audience https://api.matillion.com, then send it as Authorization: Bearer <JWT>.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance user's credentials.
