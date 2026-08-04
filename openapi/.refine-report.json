@@ -1,0 +1,30 @@
+{
+  "provider": "matillion",
+  "sources": [
+    "matillion-dpc-agents-api-openapi.yml",
+    "matillion-dpc-environments-api-openapi.yml",
+    "matillion-dpc-pipeline-executions-api-openapi.yml",
+    "matillion-dpc-projects-api-openapi.yml",
+    "matillion-dpc-schedules-api-openapi.yml",
+    "matillion-etl-groups-projects-api-openapi.yml",
+    "matillion-etl-jobs-runs-api-openapi.yml",
+    "matillion-etl-schedules-api-openapi.yml",
+    "matillion-etl-tasks-api-openapi.yml"
+  ],
+  "outputs": [
+    "matillion-dpc-agents-api-openapi.yml",
+    "matillion-dpc-environments-api-openapi.yml",
+    "matillion-dpc-pipeline-executions-api-openapi.yml",
+    "matillion-dpc-projects-api-openapi.yml",
+    "matillion-dpc-schedules-api-openapi.yml",
+    "matillion-etl-groups-projects-api-openapi.yml",
+    "matillion-etl-jobs-runs-api-openapi.yml",
+    "matillion-etl-schedules-api-openapi.yml",
+    "matillion-etl-tasks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

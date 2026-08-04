@@ -1,0 +1,1210 @@
+openapi: 3.0.1
+info:
+  title: Matillion API
+  description: >-
+    Specification of the Matillion APIs. Two surfaces are documented: the
+    Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST
+    control plane for projects, environments, pipeline executions, schedules,
+    and Agents; and the legacy instance-hosted Matillion ETL API, an
+    HTTP Basic REST API for groups, projects, versions, jobs, tasks, and
+    schedules. The DPC control plane is regional - use the eu1 or us1 host.
+    Branches on the Data Productivity Cloud are managed in the UI only and are
+    not exposed as a public API. Note: in 2026 the DPC API documentation was
+    rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.
+  termsOfService: https://www.matillion.com/terms
+  contact:
+    name: Matillion Support
+    url: https://docs.matillion.com
+  version: '1.0'
+servers:
+  - url: https://eu1.api.matillion.com/dpc
+    description: Data Productivity Cloud control plane (EU region).
+  - url: https://us1.api.matillion.com/dpc
+    description: Data Productivity Cloud control plane (US region).
+  - url: https://{instance}/rest/v1
+    description: >-
+      Legacy Matillion ETL instance-hosted API. Served from the customer's own
+      Matillion ETL VM; authenticate with HTTP Basic. Replace {instance} with
+      your instance host (also exposes /rest/v0).
+    variables:
+      instance:
+        default: your-matillion-etl-instance
+        description: Host of the customer-operated Matillion ETL instance.
+tags:
+  - name: DPC Projects
+    description: Data Productivity Cloud projects.
+  - name: DPC Environments
+    description: Data Productivity Cloud environments (warehouse connection contexts).
+  - name: DPC Pipeline Executions
+    description: Launch, inspect, and cancel Data Productivity Cloud pipeline executions.
+  - name: DPC Schedules
+    description: Data Productivity Cloud pipeline schedules.
+  - name: DPC Agents
+    description: Data Productivity Cloud Agents (hybrid runtime).
+  - name: ETL Groups & Projects
+    description: Legacy Matillion ETL groups, projects, and versions.
+  - name: ETL Jobs & Runs
+    description: Legacy Matillion ETL job execution and validation.
+  - name: ETL Tasks
+    description: Legacy Matillion ETL task monitoring and control.
+  - name: ETL Schedules
+    description: Legacy Matillion ETL schedules.
+paths:
+  # ---------------------------------------------------------------------------
+  # Data Productivity Cloud (DPC) - OAuth2 client-credentials Bearer JWT
+  # ---------------------------------------------------------------------------
+  /v1/projects:
+    get:
+      operationId: listProjects
+      tags:
+        - DPC Projects
+      summary: List Data Productivity Cloud projects.
+      security:
+        - dpc_oauth: []
+      responses:
+        '200':
+          description: A list of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+    post:
+      operationId: createProject
+      tags:
+        - DPC Projects
+      summary: Create a Data Productivity Cloud project.
+      security:
+        - dpc_oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+      responses:
+        '201':
+          description: The created project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+  /v1/projects/{projectId}:
+    delete:
+      operationId: deleteProject
+      tags:
+        - DPC Projects
+      summary: Delete a Data Productivity Cloud project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project deleted.
+  /v1/projects/{projectId}/environments:
+    get:
+      operationId: listEnvironments
+      tags:
+        - DPC Environments
+      summary: List environments for a project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: A list of environments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentList'
+    post:
+      operationId: createEnvironment
+      tags:
+        - DPC Environments
+      summary: Create an environment for a project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentCreate'
+      responses:
+        '201':
+          description: The created environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+  /v1/projects/{projectId}/pipeline-executions:
+    post:
+      operationId: createPipelineExecution
+      tags:
+        - DPC Pipeline Executions
+      summary: Launch a pipeline execution for a project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PipelineExecutionRequest'
+      responses:
+        '202':
+          description: Pipeline execution accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecution'
+  /v1/pipeline-executions:
+    get:
+      operationId: listPipelineExecutions
+      tags:
+        - DPC Pipeline Executions
+      summary: List pipeline executions, filtered by project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - in: query
+          name: projectId
+          required: true
+          schema:
+            type: string
+          description: The project whose executions to list.
+      responses:
+        '200':
+          description: A list of pipeline executions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionList'
+  /v1/projects/{projectId}/pipeline-executions/{id}/status:
+    get:
+      operationId: getPipelineExecutionStatus
+      tags:
+        - DPC Pipeline Executions
+      summary: Get the status of a pipeline execution (poll to observe progress).
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: The current execution status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionStatus'
+  /v1/projects/{projectId}/pipeline-executions/{id}/steps:
+    get:
+      operationId: getPipelineExecutionSteps
+      tags:
+        - DPC Pipeline Executions
+      summary: Get the steps of a pipeline execution.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: The steps of the execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecutionSteps'
+  /v1/projects/{projectId}/pipeline-executions/{id}:
+    patch:
+      operationId: cancelPipelineExecution
+      tags:
+        - DPC Pipeline Executions
+      summary: Cancel a running pipeline execution (body status CANCELLED).
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ExecutionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - CANCELLED
+              required:
+                - status
+      responses:
+        '200':
+          description: The updated execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExecution'
+  /v1/projects/{projectId}/schedules:
+    get:
+      operationId: listSchedules
+      tags:
+        - DPC Schedules
+      summary: List schedules for a project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: A list of schedules.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleList'
+    post:
+      operationId: createSchedule
+      tags:
+        - DPC Schedules
+      summary: Create a schedule for a project.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleCreate'
+      responses:
+        '201':
+          description: The created schedule.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+  /v1/projects/{projectId}/schedules/{scheduleId}:
+    get:
+      operationId: getSchedule
+      tags:
+        - DPC Schedules
+      summary: Get a schedule.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ScheduleId'
+      responses:
+        '200':
+          description: The schedule.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    patch:
+      operationId: updateSchedule
+      tags:
+        - DPC Schedules
+      summary: Update a schedule.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ScheduleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleCreate'
+      responses:
+        '200':
+          description: The updated schedule.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    delete:
+      operationId: deleteSchedule
+      tags:
+        - DPC Schedules
+      summary: Delete a schedule.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/ScheduleId'
+      responses:
+        '204':
+          description: Schedule deleted.
+  /v1/agents:
+    get:
+      operationId: listAgents
+      tags:
+        - DPC Agents
+      summary: List Data Productivity Cloud Agents.
+      security:
+        - dpc_oauth: []
+      responses:
+        '200':
+          description: A list of Agents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentList'
+    post:
+      operationId: createAgent
+      tags:
+        - DPC Agents
+      summary: Register a Data Productivity Cloud Agent.
+      security:
+        - dpc_oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentCreate'
+      responses:
+        '201':
+          description: The created Agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+  /v1/agents/{agentId}:
+    get:
+      operationId: getAgent
+      tags:
+        - DPC Agents
+      summary: Get a Data Productivity Cloud Agent.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The Agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+  /v1/agents/{agentId}/credentials:
+    get:
+      operationId: getAgentCredentials
+      tags:
+        - DPC Agents
+      summary: Get an Agent's credentials.
+      security:
+        - dpc_oauth: []
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The Agent credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentCredentials'
+  # ---------------------------------------------------------------------------
+  # Legacy Matillion ETL - instance-hosted, HTTP Basic auth, base /rest/v1
+  # ---------------------------------------------------------------------------
+  /rest/v1/group:
+    get:
+      operationId: listEtlGroups
+      tags:
+        - ETL Groups & Projects
+      summary: List Matillion ETL groups (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      responses:
+        '200':
+          description: A list of groups.
+    post:
+      operationId: importEtlGroup
+      tags:
+        - ETL Groups & Projects
+      summary: Import a Matillion ETL group (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Import result.
+  /rest/v1/group/name/{group}:
+    get:
+      operationId: getEtlGroup
+      tags:
+        - ETL Groups & Projects
+      summary: Get a Matillion ETL group by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: The group.
+  /rest/v1/group/name/{group}/export:
+    get:
+      operationId: exportEtlGroup
+      tags:
+        - ETL Groups & Projects
+      summary: Export a Matillion ETL group by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: The exported group.
+  /rest/v1/group/name/{group}/project:
+    get:
+      operationId: listEtlProjects
+      tags:
+        - ETL Groups & Projects
+      summary: List projects in a group (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+      responses:
+        '200':
+          description: A list of projects.
+  /rest/v1/group/name/{group}/project/name/{project}:
+    get:
+      operationId: getEtlProject
+      tags:
+        - ETL Groups & Projects
+      summary: Get a project by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: The project.
+  /rest/v1/group/name/{group}/project/name/{project}/export:
+    get:
+      operationId: exportEtlProject
+      tags:
+        - ETL Groups & Projects
+      summary: Export a project by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: The exported project.
+  /rest/v1/group/name/{group}/project/name/{project}/delete:
+    post:
+      operationId: deleteEtlProject
+      tags:
+        - ETL Groups & Projects
+      summary: Delete a project by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+      responses:
+        '200':
+          description: Delete result.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}:
+    get:
+      operationId: getEtlVersion
+      tags:
+        - ETL Groups & Projects
+      summary: Get a version by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: The version.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/export:
+    get:
+      operationId: exportEtlVersion
+      tags:
+        - ETL Groups & Projects
+      summary: Export a version by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: The exported version.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/orchestration:
+    get:
+      operationId: listEtlOrchestrationJobs
+      tags:
+        - ETL Groups & Projects
+      summary: List orchestration jobs in a version (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: A list of orchestration jobs.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/transformation:
+    get:
+      operationId: listEtlTransformationJobs
+      tags:
+        - ETL Groups & Projects
+      summary: List transformation jobs in a version (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: A list of transformation jobs.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/create:
+    post:
+      operationId: createEtlVersion
+      tags:
+        - ETL Groups & Projects
+      summary: Create a version (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: Create result.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/delete:
+    post:
+      operationId: deleteEtlVersion
+      tags:
+        - ETL Groups & Projects
+      summary: Delete a version (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+      responses:
+        '200':
+          description: Delete result.
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/run:
+    post:
+      operationId: runEtlJob
+      tags:
+        - ETL Jobs & Runs
+      summary: Run an orchestration/transformation job (legacy).
+      description: >-
+        Launches a job run. The JSON body may supply scalarVariables and
+        gridVariables. Returns a success flag and a task id, which is then
+        polled via the tasks endpoints.
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+        - $ref: '#/components/parameters/JobName'
+        - in: query
+          name: environmentName
+          required: true
+          schema:
+            type: string
+          description: The environment to run the job against.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EtlJobRunRequest'
+      responses:
+        '200':
+          description: The job run result (success flag and task id).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtlJobRunResponse'
+  /rest/v1/group/name/{group}/project/name/{project}/version/name/{version}/job/name/{job}/validate:
+    post:
+      operationId: validateEtlJob
+      tags:
+        - ETL Jobs & Runs
+      summary: Validate a job (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/GroupName'
+        - $ref: '#/components/parameters/ProjectName'
+        - $ref: '#/components/parameters/VersionName'
+        - $ref: '#/components/parameters/JobName'
+      responses:
+        '200':
+          description: The validation result.
+  /rest/v1/task/running:
+    get:
+      operationId: listEtlRunningTasks
+      tags:
+        - ETL Tasks
+      summary: List running tasks (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      responses:
+        '200':
+          description: A list of running tasks.
+  /rest/v1/task/id/{taskId}:
+    get:
+      operationId: getEtlTask
+      tags:
+        - ETL Tasks
+      summary: Get a task by id (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: The task.
+  /rest/v1/task/id/{taskId}/cancel:
+    post:
+      operationId: cancelEtlTask
+      tags:
+        - ETL Tasks
+      summary: Cancel a task by id (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Cancel result.
+  /rest/v1/task/history:
+    get:
+      operationId: listEtlTaskHistory
+      tags:
+        - ETL Tasks
+      summary: Page task history (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - in: query
+          name: since
+          schema:
+            type: string
+          description: Return tasks since this timestamp.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Maximum number of tasks to return.
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: Offset into the history for pagination.
+      responses:
+        '200':
+          description: A page of task history.
+  /rest/v1/schedule/name/{schedule}:
+    get:
+      operationId: getEtlSchedule
+      tags:
+        - ETL Schedules
+      summary: Get a schedule by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/ScheduleNameEtl'
+      responses:
+        '200':
+          description: The schedule.
+  /rest/v1/schedule/name/{schedule}/export:
+    get:
+      operationId: exportEtlSchedule
+      tags:
+        - ETL Schedules
+      summary: Export a schedule by name (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/ScheduleNameEtl'
+      responses:
+        '200':
+          description: The exported schedule.
+  /rest/v1/schedule/import:
+    post:
+      operationId: importEtlSchedule
+      tags:
+        - ETL Schedules
+      summary: Import a schedule (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Import result.
+  /rest/v1/schedule/name/{schedule}/update:
+    post:
+      operationId: updateEtlSchedule
+      tags:
+        - ETL Schedules
+      summary: Update a schedule (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/ScheduleNameEtl'
+      responses:
+        '200':
+          description: Update result.
+  /rest/v1/schedule/name/{schedule}/delete:
+    post:
+      operationId: deleteEtlSchedule
+      tags:
+        - ETL Schedules
+      summary: Delete a schedule (legacy).
+      servers:
+        - url: https://{instance}
+          variables:
+            instance:
+              default: your-matillion-etl-instance
+      security:
+        - etl_basic: []
+      parameters:
+        - $ref: '#/components/parameters/ScheduleNameEtl'
+      responses:
+        '200':
+          description: Delete result.
+components:
+  securitySchemes:
+    dpc_oauth:
+      type: oauth2
+      description: >-
+        Data Productivity Cloud OAuth2 client-credentials flow. Exchange your
+        client id and secret for a Bearer JWT at the token URL, requesting the
+        audience https://api.matillion.com, then send it as
+        Authorization: Bearer <JWT>.
+      flows:
+        clientCredentials:
+          tokenUrl: https://id.core.matillion.com/oauth/dpc/token
+          scopes: {}
+    etl_basic:
+      type: http
+      scheme: basic
+      description: >-
+        Legacy Matillion ETL HTTP Basic auth using a Matillion ETL instance
+        user's credentials.
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
+    ExecutionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: The pipeline execution id.
+    ScheduleId:
+      in: path
+      name: scheduleId
+      required: true
+      schema:
+        type: string
+      description: The schedule id.
+    AgentId:
+      in: path
+      name: agentId
+      required: true
+      schema:
+        type: string
+      description: The Agent id.
+    GroupName:
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL group name.
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
+    VersionName:
+      in: path
+      name: version
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL version name.
+    JobName:
+      in: path
+      name: job
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL job name.
+    TaskId:
+      in: path
+      name: taskId
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL task id.
+    ScheduleNameEtl:
+      in: path
+      name: schedule
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL schedule name.
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ProjectCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    ProjectList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    Environment:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        defaultEnvironment:
+          type: boolean
+    EnvironmentCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        agentId:
+          type: string
+      required:
+        - name
+    EnvironmentList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
+    PipelineExecutionRequest:
+      type: object
+      properties:
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+        - pipelineName
+        - environmentName
+    PipelineExecution:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        status:
+          type: string
+    PipelineExecutionList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineExecution'
+    PipelineExecutionStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
+    PipelineExecutionSteps:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cron:
+          type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        enabled:
+          type: boolean
+    ScheduleCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        cron:
+          type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        enabled:
+          type: boolean
+      required:
+        - name
+        - cron
+        - pipelineName
+    ScheduleList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+    AgentCreate:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    AgentList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+    AgentCredentials:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+    EtlJobRunRequest:
+      type: object
+      properties:
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+        gridVariables:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+    EtlJobRunResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        id:
+          type: integer
+          description: The task id to poll via the tasks endpoints.
