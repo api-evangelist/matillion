@@ -1,0 +1,630 @@
+{
+  "item": [
+    {
+      "id": "ed0d819c-4c8a-4455-8455-1e26f055e380",
+      "name": "ETL Schedules",
+      "description": {
+        "content": "Legacy Matillion ETL schedules.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c6c1cf9-075f-41b9-97f0-b816b2fa0551",
+          "name": "Get a schedule by name (legacy).",
+          "request": {
+            "name": "Get a schedule by name (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "schedule",
+                "name",
+                ":schedule"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schedule",
+                  "description": "(Required) The Matillion ETL schedule name."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c27071a-8d23-4d81-8dde-d7c9ccd8834a",
+              "name": "The schedule.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "schedule",
+                    "name",
+                    ":schedule"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schedule",
+                      "description": "(Required) The Matillion ETL schedule name."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8808ab9c-8545-4f25-956b-476ad4a7c445",
+          "name": "Export a schedule by name (legacy).",
+          "request": {
+            "name": "Export a schedule by name (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "schedule",
+                "name",
+                ":schedule",
+                "export"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schedule",
+                  "description": "(Required) The Matillion ETL schedule name."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5045d5ad-6da0-410e-8297-1806f40b1530",
+              "name": "The exported schedule.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "schedule",
+                    "name",
+                    ":schedule",
+                    "export"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schedule",
+                      "description": "(Required) The Matillion ETL schedule name."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03dd8a0d-5831-46d2-b6a2-02c060e062f6",
+          "name": "Import a schedule (legacy).",
+          "request": {
+            "name": "Import a schedule (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "schedule",
+                "import"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e9569c9-5b2f-4094-8399-b0df56cbb749",
+              "name": "Import result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "schedule",
+                    "import"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7342761-1b62-4c2a-82e5-27989d666a0d",
+          "name": "Update a schedule (legacy).",
+          "request": {
+            "name": "Update a schedule (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "schedule",
+                "name",
+                ":schedule",
+                "update"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schedule",
+                  "description": "(Required) The Matillion ETL schedule name."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3323056f-7d07-4cce-9b97-9d790bbcb8c2",
+              "name": "Update result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "schedule",
+                    "name",
+                    ":schedule",
+                    "update"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schedule",
+                      "description": "(Required) The Matillion ETL schedule name."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0d08c94-d530-49fa-9d26-2348f0ef3809",
+          "name": "Delete a schedule (legacy).",
+          "request": {
+            "name": "Delete a schedule (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "schedule",
+                "name",
+                ":schedule",
+                "delete"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schedule",
+                  "description": "(Required) The Matillion ETL schedule name."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "97e19f0a-0315-43f5-8de8-6bf3a052d88e",
+              "name": "Delete result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "schedule",
+                    "name",
+                    ":schedule",
+                    "delete"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schedule",
+                      "description": "(Required) The Matillion ETL schedule name."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eu1.api.matillion.com/dpc",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3d39c4ae-1b55-4201-8613-2f1aeeec1dac",
+    "name": "Matillion DPC Agents ETL Schedules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai (\"Maia\"); the runtime hosts below are unchanged.\n\nContact Support:\n Name: Matillion Support",
+      "type": "text/plain"
+    }
+  }
+}

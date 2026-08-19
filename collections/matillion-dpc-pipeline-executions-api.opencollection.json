@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion DPC Agents DPC Pipeline Executions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DPC Pipeline Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Launch a pipeline execution for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/:projectId/pipeline-executions",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The Data Productivity Cloud project id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Launch a pipeline execution for a project."
+        },
+        {
+          "info": {
+            "name": "List pipeline executions, filtered by project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/pipeline-executions",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "The project whose executions to list."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List pipeline executions, filtered by project."
+        },
+        {
+          "info": {
+            "name": "Get the status of a pipeline execution (poll to observe progress).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/:projectId/pipeline-executions/:id/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The Data Productivity Cloud project id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The pipeline execution id."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the status of a pipeline execution (poll to observe progress)."
+        },
+        {
+          "info": {
+            "name": "Get the steps of a pipeline execution.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/:projectId/pipeline-executions/:id/steps",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The Data Productivity Cloud project id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The pipeline execution id."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the steps of a pipeline execution."
+        },
+        {
+          "info": {
+            "name": "Cancel a running pipeline execution (body status CANCELLED).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/:projectId/pipeline-executions/:id",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The Data Productivity Cloud project id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The pipeline execution id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Cancel a running pipeline execution (body status CANCELLED)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

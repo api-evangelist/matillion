@@ -1,0 +1,432 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion DPC Agents ETL Groups & Projects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ETL Groups & Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Matillion ETL groups (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List Matillion ETL groups (legacy)."
+        },
+        {
+          "info": {
+            "name": "Import a Matillion ETL group (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Import a Matillion ETL group (legacy)."
+        },
+        {
+          "info": {
+            "name": "Get a Matillion ETL group by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a Matillion ETL group by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Export a Matillion ETL group by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/export",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Export a Matillion ETL group by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "List projects in a group (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List projects in a group (legacy)."
+        },
+        {
+          "info": {
+            "name": "Get a project by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a project by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Export a project by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/export",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Export a project by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Delete a project by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/delete",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a project by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Get a version by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a version by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "Export a version by name (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/export",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Export a version by name (legacy)."
+        },
+        {
+          "info": {
+            "name": "List orchestration jobs in a version (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/orchestration",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List orchestration jobs in a version (legacy)."
+        },
+        {
+          "info": {
+            "name": "List transformation jobs in a version (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/transformation",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List transformation jobs in a version (legacy)."
+        },
+        {
+          "info": {
+            "name": "Create a version (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/create",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a version (legacy)."
+        },
+        {
+          "info": {
+            "name": "Delete a version (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/delete",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a version (legacy)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

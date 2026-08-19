@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion DPC Agents DPC Projects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DPC Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Productivity Cloud projects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List Data Productivity Cloud projects."
+        },
+        {
+          "info": {
+            "name": "Create a Data Productivity Cloud project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Data Productivity Cloud project."
+        },
+        {
+          "info": {
+            "name": "Delete a Data Productivity Cloud project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eu1.api.matillion.com/dpc/v1/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The Data Productivity Cloud project id."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Data Productivity Cloud project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

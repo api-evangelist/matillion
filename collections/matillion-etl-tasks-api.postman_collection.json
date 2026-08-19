@@ -1,0 +1,502 @@
+{
+  "item": [
+    {
+      "id": "b5547762-4e63-4e23-bba6-d6ce44cd3de7",
+      "name": "ETL Tasks",
+      "description": {
+        "content": "Legacy Matillion ETL task monitoring and control.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de505ec8-f340-4e92-bf81-6b3160c2e4d7",
+          "name": "List running tasks (legacy).",
+          "request": {
+            "name": "List running tasks (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "task",
+                "running"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "18fac5c6-e07b-4f8b-aa4f-37ea73ff0d41",
+              "name": "A list of running tasks.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "task",
+                    "running"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d43faf96-19b4-4794-a0eb-7e0ae2b80221",
+          "name": "Get a task by id (legacy).",
+          "request": {
+            "name": "Get a task by id (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "task",
+                "id",
+                ":taskId"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) The Matillion ETL task id."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "11ba6d3b-88ec-4bdf-873d-17fad3e0591f",
+              "name": "The task.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "task",
+                    "id",
+                    ":taskId"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) The Matillion ETL task id."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c02172e6-d67e-4552-82b2-d4c2e71bc23c",
+          "name": "Cancel a task by id (legacy).",
+          "request": {
+            "name": "Cancel a task by id (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "task",
+                "id",
+                ":taskId",
+                "cancel"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) The Matillion ETL task id."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67b463bb-df65-4df6-9b23-b13a0bed82a5",
+              "name": "Cancel result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "task",
+                    "id",
+                    ":taskId",
+                    "cancel"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) The Matillion ETL task id."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06eb0e37-cf3e-485b-9998-646eeeee6965",
+          "name": "Page task history (legacy).",
+          "request": {
+            "name": "Page task history (legacy).",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "port": "instance",
+              "path": [
+                "rest",
+                "v1",
+                "task",
+                "history"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "<string>",
+                  "description": "Return tasks since this timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of tasks to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset into the history for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "your-matillion-etl-instance",
+                  "key": "instance"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "baeb9336-f8bb-493e-92ed-7163e9ecc9b5",
+              "name": "A page of task history.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "instance",
+                  "path": [
+                    "rest",
+                    "v1",
+                    "task",
+                    "history"
+                  ],
+                  "query": [
+                    {
+                      "key": "since",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "your-matillion-etl-instance",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eu1.api.matillion.com/dpc",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0061cb97-af58-4c37-ae21-8fce1c91dc8b",
+    "name": "Matillion DPC Agents ETL Tasks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai (\"Maia\"); the runtime hosts below are unchanged.\n\nContact Support:\n Name: Matillion Support",
+      "type": "text/plain"
+    }
+  }
+}

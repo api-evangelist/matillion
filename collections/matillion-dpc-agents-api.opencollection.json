@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion DPC Agents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DPC Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Productivity Cloud Agents.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List Data Productivity Cloud Agents."
+        },
+        {
+          "info": {
+            "name": "Register a Data Productivity Cloud Agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Register a Data Productivity Cloud Agent."
+        },
+        {
+          "info": {
+            "name": "Get a Data Productivity Cloud Agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents/:agentId",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "The Agent id."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a Data Productivity Cloud Agent."
+        },
+        {
+          "info": {
+            "name": "Get an Agent's credentials.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu1.api.matillion.com/dpc/v1/agents/:agentId/credentials",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "The Agent id."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://id.core.matillion.com/oauth/dpc/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an Agent's credentials."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

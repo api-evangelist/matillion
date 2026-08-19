@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Matillion DPC Agents ETL Jobs & Runs API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ETL Jobs & Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run an orchestration/transformation job (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/job/name/:job/run",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              },
+              {
+                "name": "job",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL job name."
+              },
+              {
+                "name": "environmentName",
+                "value": "",
+                "type": "query",
+                "description": "The environment to run the job against."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Launches a job run. The JSON body may supply scalarVariables and gridVariables. Returns a success flag and a task id, which is then polled via the tasks endpoints."
+        },
+        {
+          "info": {
+            "name": "Validate a job (legacy).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu1.api.matillion.com/dpc/rest/v1/group/name/:group/project/name/:project/version/name/:version/job/name/:job/validate",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL group name."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL project name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL version name."
+              },
+              {
+                "name": "job",
+                "value": "",
+                "type": "path",
+                "description": "The Matillion ETL job name."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Validate a job (legacy)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
