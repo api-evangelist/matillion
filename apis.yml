@@ -26,6 +26,12 @@ tags:
 - Data Integration
 - ETL
 - ELT
+- Data Pipeline
+- Cloud Data Warehouse
+tags_raw:
+- Data Integration
+- ETL
+- ELT
 - Data Pipelines
 - Cloud Data Warehouse
 created: '2026-07-01'
