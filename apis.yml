@@ -8,6 +8,18 @@ description: Matillion is a data integration and transformation (ETL/ELT) compan
   for projects, environments, pipeline executions, schedules, and Agents, while the
   legacy instance-hosted Matillion ETL API exposes groups, projects, versions, jobs,
   tasks, and schedules over HTTP Basic auth.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
