@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Matillion DPC Agents DPC Schedules API
-  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  title: Matillion DPC Schedules API
+  description: Specification of the Matillion APIs.
   termsOfService: https://www.matillion.com/terms
   contact:
     name: Matillion Support
@@ -27,7 +27,7 @@ paths:
       operationId: listSchedules
       tags:
       - DPC Schedules
-      summary: List schedules for a project.
+      summary: List schedules for a project
       security:
       - dpc_oauth: []
       parameters:
@@ -43,7 +43,7 @@ paths:
       operationId: createSchedule
       tags:
       - DPC Schedules
-      summary: Create a schedule for a project.
+      summary: Create a schedule for a project
       security:
       - dpc_oauth: []
       parameters:
@@ -66,7 +66,7 @@ paths:
       operationId: getSchedule
       tags:
       - DPC Schedules
-      summary: Get a schedule.
+      summary: Get a schedule
       security:
       - dpc_oauth: []
       parameters:
@@ -83,7 +83,7 @@ paths:
       operationId: updateSchedule
       tags:
       - DPC Schedules
-      summary: Update a schedule.
+      summary: Update a schedule
       security:
       - dpc_oauth: []
       parameters:
@@ -106,7 +106,7 @@ paths:
       operationId: deleteSchedule
       tags:
       - DPC Schedules
-      summary: Delete a schedule.
+      summary: Delete a schedule
       security:
       - dpc_oauth: []
       parameters:
@@ -117,13 +117,21 @@ paths:
           description: Schedule deleted.
 components:
   schemas:
-    ScheduleList:
+    Schedule:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule'
+        id:
+          type: string
+        name:
+          type: string
+        cron:
+          type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        enabled:
+          type: boolean
     ScheduleCreate:
       type: object
       properties:
@@ -141,21 +149,13 @@ components:
       - name
       - cron
       - pipelineName
-    Schedule:
+    ScheduleList:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        cron:
-          type: string
-        pipelineName:
-          type: string
-        environmentName:
-          type: string
-        enabled:
-          type: boolean
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
   parameters:
     ScheduleId:
       in: path

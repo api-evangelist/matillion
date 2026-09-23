@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Matillion DPC Agents DPC Pipeline Executions API
-  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  title: Matillion DPC Pipeline Executions API
+  description: Specification of the Matillion APIs.
   termsOfService: https://www.matillion.com/terms
   contact:
     name: Matillion Support
@@ -27,7 +27,7 @@ paths:
       operationId: createPipelineExecution
       tags:
       - DPC Pipeline Executions
-      summary: Launch a pipeline execution for a project.
+      summary: Launch a pipeline execution for a project
       security:
       - dpc_oauth: []
       parameters:
@@ -50,7 +50,7 @@ paths:
       operationId: listPipelineExecutions
       tags:
       - DPC Pipeline Executions
-      summary: List pipeline executions, filtered by project.
+      summary: List pipeline executions, filtered by project
       security:
       - dpc_oauth: []
       parameters:
@@ -72,7 +72,7 @@ paths:
       operationId: getPipelineExecutionStatus
       tags:
       - DPC Pipeline Executions
-      summary: Get the status of a pipeline execution (poll to observe progress).
+      summary: Get the status of a pipeline execution (poll to observe progress)
       security:
       - dpc_oauth: []
       parameters:
@@ -90,7 +90,7 @@ paths:
       operationId: getPipelineExecutionSteps
       tags:
       - DPC Pipeline Executions
-      summary: Get the steps of a pipeline execution.
+      summary: Get the steps of a pipeline execution
       security:
       - dpc_oauth: []
       parameters:
@@ -108,7 +108,7 @@ paths:
       operationId: cancelPipelineExecution
       tags:
       - DPC Pipeline Executions
-      summary: Cancel a running pipeline execution (body status CANCELLED).
+      summary: Cancel a running pipeline execution (body status CANCELLED)
       security:
       - dpc_oauth: []
       parameters:
@@ -136,20 +136,18 @@ paths:
                 $ref: '#/components/schemas/PipelineExecution'
 components:
   schemas:
-    PipelineExecutionRequest:
+    PipelineExecutionSteps:
       type: object
       properties:
-        pipelineName:
-          type: string
-        environmentName:
-          type: string
-        scalarVariables:
-          type: object
-          additionalProperties:
-            type: string
-      required:
-      - pipelineName
-      - environmentName
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
     PipelineExecution:
       type: object
       properties:
@@ -174,26 +172,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PipelineExecution'
-    PipelineExecutionSteps:
+    PipelineExecutionRequest:
       type: object
       properties:
-        steps:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              status:
-                type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - pipelineName
+      - environmentName
   parameters:
-    ProjectId:
-      in: path
-      name: projectId
-      required: true
-      schema:
-        type: string
-      description: The Data Productivity Cloud project id.
     ExecutionId:
       in: path
       name: id
@@ -201,6 +194,13 @@ components:
       schema:
         type: string
       description: The pipeline execution id.
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
   securitySchemes:
     dpc_oauth:
       type: oauth2

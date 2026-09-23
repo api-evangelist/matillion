@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Matillion DPC Agents DPC Projects API
-  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  title: Matillion DPC Projects API
+  description: Specification of the Matillion APIs.
   termsOfService: https://www.matillion.com/terms
   contact:
     name: Matillion Support
@@ -27,7 +27,7 @@ paths:
       operationId: listProjects
       tags:
       - DPC Projects
-      summary: List Data Productivity Cloud projects.
+      summary: List Data Productivity Cloud projects
       security:
       - dpc_oauth: []
       responses:
@@ -41,7 +41,7 @@ paths:
       operationId: createProject
       tags:
       - DPC Projects
-      summary: Create a Data Productivity Cloud project.
+      summary: Create a Data Productivity Cloud project
       security:
       - dpc_oauth: []
       requestBody:
@@ -62,7 +62,7 @@ paths:
       operationId: deleteProject
       tags:
       - DPC Projects
-      summary: Delete a Data Productivity Cloud project.
+      summary: Delete a Data Productivity Cloud project
       security:
       - dpc_oauth: []
       parameters:

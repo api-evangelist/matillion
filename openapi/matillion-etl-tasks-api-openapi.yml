@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Matillion DPC Agents ETL Tasks API
-  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  title: Matillion ETL Tasks API
+  description: Specification of the Matillion APIs.
   termsOfService: https://www.matillion.com/terms
   contact:
     name: Matillion Support
@@ -27,7 +27,7 @@ paths:
       operationId: listEtlRunningTasks
       tags:
       - ETL Tasks
-      summary: List running tasks (legacy).
+      summary: List running tasks (legacy)
       servers:
       - url: https://{instance}
         variables:
@@ -43,7 +43,7 @@ paths:
       operationId: getEtlTask
       tags:
       - ETL Tasks
-      summary: Get a task by id (legacy).
+      summary: Get a task by id (legacy)
       servers:
       - url: https://{instance}
         variables:
@@ -61,7 +61,7 @@ paths:
       operationId: cancelEtlTask
       tags:
       - ETL Tasks
-      summary: Cancel a task by id (legacy).
+      summary: Cancel a task by id (legacy)
       servers:
       - url: https://{instance}
         variables:
@@ -79,7 +79,7 @@ paths:
       operationId: listEtlTaskHistory
       tags:
       - ETL Tasks
-      summary: Page task history (legacy).
+      summary: Page task history (legacy)
       servers:
       - url: https://{instance}
         variables:

@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Matillion DPC Agents API
-  description: 'Specification of the Matillion APIs. Two surfaces are documented: the Data Productivity Cloud (DPC) API, an OAuth2 client-credentials REST control plane for projects, environments, pipeline executions, schedules, and Agents; and the legacy instance-hosted Matillion ETL API, an HTTP Basic REST API for groups, projects, versions, jobs, tasks, and schedules. The DPC control plane is regional - use the eu1 or us1 host. Branches on the Data Productivity Cloud are managed in the UI only and are not exposed as a public API. Note: in 2026 the DPC API documentation was rebranded to docs.maia.ai ("Maia"); the runtime hosts below are unchanged.'
+  description: Specification of the Matillion APIs.
   termsOfService: https://www.matillion.com/terms
   contact:
     name: Matillion Support
@@ -27,7 +27,7 @@ paths:
       operationId: listAgents
       tags:
       - DPC Agents
-      summary: List Data Productivity Cloud Agents.
+      summary: List Data Productivity Cloud Agents
       security:
       - dpc_oauth: []
       responses:
@@ -41,7 +41,7 @@ paths:
       operationId: createAgent
       tags:
       - DPC Agents
-      summary: Register a Data Productivity Cloud Agent.
+      summary: Register a Data Productivity Cloud Agent
       security:
       - dpc_oauth: []
       requestBody:
@@ -62,7 +62,7 @@ paths:
       operationId: getAgent
       tags:
       - DPC Agents
-      summary: Get a Data Productivity Cloud Agent.
+      summary: Get a Data Productivity Cloud Agent
       security:
       - dpc_oauth: []
       parameters:
@@ -79,7 +79,7 @@ paths:
       operationId: getAgentCredentials
       tags:
       - DPC Agents
-      summary: Get an Agent's credentials.
+      summary: Get an Agent's credentials
       security:
       - dpc_oauth: []
       parameters:
@@ -92,21 +92,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/AgentCredentials'
 components:
+  parameters:
+    AgentId:
+      in: path
+      name: agentId
+      required: true
+      schema:
+        type: string
+      description: The Agent id.
   schemas:
-    AgentList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Agent'
-    AgentCredentials:
-      type: object
-      properties:
-        clientId:
-          type: string
-        clientSecret:
-          type: string
     AgentCreate:
       type: object
       properties:
@@ -114,6 +108,13 @@ components:
           type: string
       required:
       - name
+    AgentCredentials:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
     Agent:
       type: object
       properties:
@@ -123,14 +124,13 @@ components:
           type: string
         status:
           type: string
-  parameters:
-    AgentId:
-      in: path
-      name: agentId
-      required: true
-      schema:
-        type: string
-      description: The Agent id.
+    AgentList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
   securitySchemes:
     dpc_oauth:
       type: oauth2
