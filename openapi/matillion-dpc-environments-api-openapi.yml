@@ -63,15 +63,13 @@ paths:
                 $ref: '#/components/schemas/Environment'
 components:
   schemas:
-    EnvironmentCreate:
+    EnvironmentList:
       type: object
       properties:
-        name:
-          type: string
-        agentId:
-          type: string
-      required:
-      - name
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
     Environment:
       type: object
       properties:
@@ -81,13 +79,15 @@ components:
           type: string
         defaultEnvironment:
           type: boolean
-    EnvironmentList:
+    EnvironmentCreate:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Environment'
+        name:
+          type: string
+        agentId:
+          type: string
+      required:
+      - name
   parameters:
     ProjectId:
       in: path

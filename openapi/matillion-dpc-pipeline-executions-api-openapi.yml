@@ -136,6 +136,35 @@ paths:
                 $ref: '#/components/schemas/PipelineExecution'
 components:
   schemas:
+    PipelineExecutionList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineExecution'
+    PipelineExecutionStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
+    PipelineExecutionRequest:
+      type: object
+      properties:
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        scalarVariables:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - pipelineName
+      - environmentName
     PipelineExecutionSteps:
       type: object
       properties:
@@ -157,35 +186,6 @@ components:
           type: string
         status:
           type: string
-    PipelineExecutionStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
-    PipelineExecutionList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineExecution'
-    PipelineExecutionRequest:
-      type: object
-      properties:
-        pipelineName:
-          type: string
-        environmentName:
-          type: string
-        scalarVariables:
-          type: object
-          additionalProperties:
-            type: string
-      required:
-      - pipelineName
-      - environmentName
   parameters:
     ExecutionId:
       in: path

@@ -117,21 +117,6 @@ paths:
           description: Schedule deleted.
 components:
   schemas:
-    Schedule:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        cron:
-          type: string
-        pipelineName:
-          type: string
-        environmentName:
-          type: string
-        enabled:
-          type: boolean
     ScheduleCreate:
       type: object
       properties:
@@ -156,6 +141,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Schedule'
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cron:
+          type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        enabled:
+          type: boolean
   parameters:
     ScheduleId:
       in: path

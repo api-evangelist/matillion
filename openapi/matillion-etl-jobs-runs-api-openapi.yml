@@ -82,36 +82,15 @@ paths:
         '200':
           description: The validation result.
 components:
-  parameters:
-    JobName:
-      in: path
-      name: job
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL job name.
-    ProjectName:
-      in: path
-      name: project
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL project name.
-    GroupName:
-      in: path
-      name: group
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL group name.
-    VersionName:
-      in: path
-      name: version
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL version name.
   schemas:
+    EtlJobRunResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        id:
+          type: integer
+          description: The task id to poll via the tasks endpoints.
     EtlJobRunRequest:
       type: object
       properties:
@@ -127,14 +106,35 @@ components:
               type: array
               items:
                 type: string
-    EtlJobRunResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        id:
-          type: integer
-          description: The task id to poll via the tasks endpoints.
+  parameters:
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
+    JobName:
+      in: path
+      name: job
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL job name.
+    GroupName:
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL group name.
+    VersionName:
+      in: path
+      name: version
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL version name.
   securitySchemes:
     dpc_oauth:
       type: oauth2
