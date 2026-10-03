@@ -72,15 +72,6 @@ paths:
           description: Project deleted.
 components:
   schemas:
-    ProjectCreate:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-      required:
-      - name
     ProjectList:
       type: object
       properties:
@@ -97,6 +88,15 @@ components:
           type: string
         description:
           type: string
+    ProjectCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - name
   parameters:
     ProjectId:
       in: path

@@ -62,6 +62,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Environment'
 components:
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
   schemas:
     EnvironmentList:
       type: object
@@ -88,14 +96,6 @@ components:
           type: string
       required:
       - name
-  parameters:
-    ProjectId:
-      in: path
-      name: projectId
-      required: true
-      schema:
-        type: string
-      description: The Data Productivity Cloud project id.
   securitySchemes:
     dpc_oauth:
       type: oauth2

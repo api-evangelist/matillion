@@ -116,7 +116,44 @@ paths:
         '204':
           description: Schedule deleted.
 components:
+  parameters:
+    ScheduleId:
+      in: path
+      name: scheduleId
+      required: true
+      schema:
+        type: string
+      description: The schedule id.
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
   schemas:
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cron:
+          type: string
+        pipelineName:
+          type: string
+        environmentName:
+          type: string
+        enabled:
+          type: boolean
+    ScheduleList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
     ScheduleCreate:
       type: object
       properties:
@@ -134,43 +171,6 @@ components:
       - name
       - cron
       - pipelineName
-    ScheduleList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule'
-    Schedule:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        cron:
-          type: string
-        pipelineName:
-          type: string
-        environmentName:
-          type: string
-        enabled:
-          type: boolean
-  parameters:
-    ScheduleId:
-      in: path
-      name: scheduleId
-      required: true
-      schema:
-        type: string
-      description: The schedule id.
-    ProjectId:
-      in: path
-      name: projectId
-      required: true
-      schema:
-        type: string
-      description: The Data Productivity Cloud project id.
   securitySchemes:
     dpc_oauth:
       type: oauth2

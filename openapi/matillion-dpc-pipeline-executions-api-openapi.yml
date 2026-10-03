@@ -135,6 +135,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/PipelineExecution'
 components:
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
+    ExecutionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: The pipeline execution id.
   schemas:
     PipelineExecutionList:
       type: object
@@ -143,14 +158,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PipelineExecution'
-    PipelineExecutionStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
     PipelineExecutionRequest:
       type: object
       properties:
@@ -165,6 +172,23 @@ components:
       required:
       - pipelineName
       - environmentName
+    PipelineExecutionStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: e.g. RUNNING, SUCCESS, FAILED, CANCELLED.
+    PipelineExecution:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        status:
+          type: string
     PipelineExecutionSteps:
       type: object
       properties:
@@ -177,30 +201,6 @@ components:
                 type: string
               status:
                 type: string
-    PipelineExecution:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        status:
-          type: string
-  parameters:
-    ExecutionId:
-      in: path
-      name: id
-      required: true
-      schema:
-        type: string
-      description: The pipeline execution id.
-    ProjectId:
-      in: path
-      name: projectId
-      required: true
-      schema:
-        type: string
-      description: The Data Productivity Cloud project id.
   securitySchemes:
     dpc_oauth:
       type: oauth2

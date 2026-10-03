@@ -93,6 +93,13 @@ paths:
                 $ref: '#/components/schemas/AgentCredentials'
 components:
   schemas:
+    AgentCredentials:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
     Agent:
       type: object
       properties:
@@ -102,20 +109,6 @@ components:
           type: string
         status:
           type: string
-    AgentCredentials:
-      type: object
-      properties:
-        clientId:
-          type: string
-        clientSecret:
-          type: string
-    AgentList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Agent'
     AgentCreate:
       type: object
       properties:
@@ -123,6 +116,13 @@ components:
           type: string
       required:
       - name
+    AgentList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
   parameters:
     AgentId:
       in: path
