@@ -292,13 +292,6 @@ paths:
           description: Delete result.
 components:
   parameters:
-    ProjectName:
-      in: path
-      name: project
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL project name.
     GroupName:
       in: path
       name: group
@@ -313,6 +306,13 @@ components:
       schema:
         type: string
       description: The Matillion ETL version name.
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
   securitySchemes:
     dpc_oauth:
       type: oauth2

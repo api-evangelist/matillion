@@ -92,6 +92,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/AgentCredentials'
 components:
+  parameters:
+    AgentId:
+      in: path
+      name: agentId
+      required: true
+      schema:
+        type: string
+      description: The Agent id.
   schemas:
     AgentCredentials:
       type: object
@@ -109,13 +117,6 @@ components:
           type: string
         status:
           type: string
-    AgentCreate:
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
     AgentList:
       type: object
       properties:
@@ -123,14 +124,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Agent'
-  parameters:
-    AgentId:
-      in: path
-      name: agentId
-      required: true
-      schema:
-        type: string
-      description: The Agent id.
+    AgentCreate:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
   securitySchemes:
     dpc_oauth:
       type: oauth2

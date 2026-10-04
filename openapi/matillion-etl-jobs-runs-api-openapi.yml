@@ -82,6 +82,35 @@ paths:
         '200':
           description: The validation result.
 components:
+  parameters:
+    VersionName:
+      in: path
+      name: version
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL version name.
+    ProjectName:
+      in: path
+      name: project
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL project name.
+    GroupName:
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL group name.
+    JobName:
+      in: path
+      name: job
+      required: true
+      schema:
+        type: string
+      description: The Matillion ETL job name.
   schemas:
     EtlJobRunRequest:
       type: object
@@ -106,35 +135,6 @@ components:
         id:
           type: integer
           description: The task id to poll via the tasks endpoints.
-  parameters:
-    JobName:
-      in: path
-      name: job
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL job name.
-    VersionName:
-      in: path
-      name: version
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL version name.
-    ProjectName:
-      in: path
-      name: project
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL project name.
-    GroupName:
-      in: path
-      name: group
-      required: true
-      schema:
-        type: string
-      description: The Matillion ETL group name.
   securitySchemes:
     dpc_oauth:
       type: oauth2

@@ -1,13 +1,16 @@
 aid: matillion
+
 url: https://raw.githubusercontent.com/api-evangelist/matillion/refs/heads/main/apis.yml
+
 name: Matillion
+
 kind: company
-description: Matillion is a data integration and transformation (ETL/ELT) company whose
-  Data Productivity Cloud (DPC) lets teams build, orchestrate, and schedule data pipelines
-  against cloud data warehouses. The DPC API is an OAuth2-secured REST control plane
-  for projects, environments, pipeline executions, schedules, and Agents, while the
-  legacy instance-hosted Matillion ETL API exposes groups, projects, versions, jobs,
-  tasks, and schedules over HTTP Basic auth.
+
+description: Matillion is a data integration and transformation (ETL/ELT) company whose Data Productivity Cloud (DPC) lets teams build, orchestrate,
+  and schedule data pipelines against cloud data warehouses. The DPC API is an OAuth2-secured REST control plane for projects, environments, pipeline
+  executions, schedules, and Agents, while the legacy instance-hosted Matillion ETL API exposes groups, projects, versions, jobs, tasks, and schedules
+  over HTTP Basic auth.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -20,6 +23,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -33,22 +37,97 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/matillion.png
+
 tags:
 - Data Integration
 - ETL
 - ELT
 - Data Pipeline
 - Cloud Data Warehouse
+
 tags_raw:
 - Data Integration
 - ETL
 - ELT
 - Data Pipelines
 - Cloud Data Warehouse
+
 created: '2026-07-01'
+
 modified: '2026-07-01'
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: SecurityTxt
+  url: well-known/matillion-status-security.txt
+- type: WellKnown
+  url: well-known/matillion-well-known.yml
+- type: Spectral
+  url: rules/matillion-rules.yml
+- type: JSONLD
+  url: json-ld/matillion-context.jsonld
+- type: Vocabulary
+  url: vocabulary/matillion-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/matillion-data-model.yml
+- type: Conformance
+  url: conformance/matillion-conformance.yml
+- type: Hosts
+  url: hosts/matillion-hosts.yml
+- type: Vendors
+  url: vendors/matillion-vendors.yml
+- type: TrustCenter
+  url: https://www.matillion.com/trust-center
+- type: Support
+  url: https://support.matillion.com/s/
+- type: StatusPage
+  url: https://status.matillion.com/
+- type: Security
+  url: https://www.matillion.com/security
+- type: PrivacyPolicy
+  url: https://www.matillion.com/privacy/
+- type: Pricing
+  url: https://www.matillion.com/pricing
+- type: Newsroom
+  url: https://www.matillion.com/news
+- type: Leadership
+  url: https://www.matillion.com/leadership/tim-oneil
+- type: ChangeLog
+  url: https://roadmap.matillion.com/changelog
+- type: GettingStarted
+  url: https://docs.matillion.com/data-productivity-cloud/cdc/docs/cdc-getting-started/
+- type: AgenticAccess
+  url: agentic-access/matillion-agentic-access.yml
+- type: DomainSecurity
+  url: security/matillion-domain-security.yml
+- type: Authentication
+  url: authentication/matillion-authentication.yml
+- type: OAuthScopes
+  url: scopes/matillion-scopes.yml
+- type: GitHubOrganization
+  url: https://github.com/matillion
+- type: Website
+  url: https://www.matillion.com
+- type: Documentation
+  url: https://docs.matillion.com
+- type: Plans
+  url: plans/matillion-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/matillion-rate-limits.yml
+- type: FinOps
+  url: finops/matillion-finops.yml
+- url: https://www.matillion.com/blog
+  type: Blog
+
 apis:
 - aid: matillion:matillion-dpc-agents-api
   name: Matillion DPC Agents API
@@ -62,6 +141,14 @@ apis:
     url: openapi/matillion-dpc-agents-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-agent-list-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-agent-credentials-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-agent-create-schema.json
 - aid: matillion:matillion-dpc-environments-api
   name: Matillion DPC Environments API
   description: Data Productivity Cloud environments (warehouse connection contexts).
@@ -74,6 +161,12 @@ apis:
     url: openapi/matillion-dpc-environments-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-environment-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-environment-list-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-environment-create-schema.json
 - aid: matillion:matillion-dpc-pipeline-executions-api
   name: Matillion DPC Pipeline Executions API
   description: Launch, inspect, and cancel Data Productivity Cloud pipeline executions.
@@ -86,6 +179,16 @@ apis:
     url: openapi/matillion-dpc-pipeline-executions-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-pipeline-execution-request-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-pipeline-execution-steps-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-pipeline-execution-status-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-pipeline-execution-list-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-pipeline-execution-schema.json
 - aid: matillion:matillion-dpc-projects-api
   name: Matillion DPC Projects API
   description: Data Productivity Cloud projects.
@@ -98,6 +201,12 @@ apis:
     url: openapi/matillion-dpc-projects-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-project-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-project-create-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-project-list-schema.json
 - aid: matillion:matillion-dpc-schedules-api
   name: Matillion DPC Schedules API
   description: Data Productivity Cloud pipeline schedules.
@@ -110,6 +219,12 @@ apis:
     url: openapi/matillion-dpc-schedules-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-schedule-create-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-schedule-list-schema.json
 - aid: matillion:matillion-etl-groups-projects-api
   name: Matillion ETL Groups & Projects API
   description: Legacy Matillion ETL groups, projects, and versions.
@@ -134,6 +249,10 @@ apis:
     url: openapi/matillion-etl-jobs-runs-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
+  - type: JSONSchema
+    url: json-schema/matillion-etl-job-run-request-schema.json
+  - type: JSONSchema
+    url: json-schema/matillion-etl-job-run-response-schema.json
 - aid: matillion:matillion-etl-schedules-api
   name: Matillion ETL Schedules API
   description: Legacy Matillion ETL schedules.
@@ -158,31 +277,18 @@ apis:
     url: openapi/matillion-etl-tasks-api-openapi.yml
   - type: Documentation
     url: https://docs.matillion.com
-common:
-- type: AgenticAccess
-  url: agentic-access/matillion-agentic-access.yml
-- type: DomainSecurity
-  url: security/matillion-domain-security.yml
-- type: Authentication
-  url: authentication/matillion-authentication.yml
-- type: OAuthScopes
-  url: scopes/matillion-scopes.yml
-- type: GitHubOrganization
-  url: https://github.com/matillion
-- type: LinkedIn
-  url: https://www.linkedin.com/company/matillion
-- type: Website
-  url: https://www.matillion.com
-- type: Documentation
-  url: https://docs.matillion.com
-- type: Plans
-  url: plans/matillion-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/matillion-rate-limits.yml
-- type: FinOps
-  url: finops/matillion-finops.yml
-- url: https://www.matillion.com/blog
-  type: Blog
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
+x-coverage:
+  state: unreadable
+  reason: js-rendered-docs
+  detail: Documentation site renders via JavaScript, preventing retrieval of machine-readable specs.
+  evidence:
+  - url: https://docs.matillion.com/
+    status: 200
+  checked: '2026-10-04'
+x-enrichment:
+  date: '2026-10-04'
+  status: enriched
+  artifacts_added: 32
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

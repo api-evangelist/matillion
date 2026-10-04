@@ -71,23 +71,15 @@ paths:
         '204':
           description: Project deleted.
 components:
+  parameters:
+    ProjectId:
+      in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+      description: The Data Productivity Cloud project id.
   schemas:
-    ProjectList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
-    Project:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
     ProjectCreate:
       type: object
       properties:
@@ -97,14 +89,22 @@ components:
           type: string
       required:
       - name
-  parameters:
-    ProjectId:
-      in: path
-      name: projectId
-      required: true
-      schema:
-        type: string
-      description: The Data Productivity Cloud project id.
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ProjectList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
   securitySchemes:
     dpc_oauth:
       type: oauth2

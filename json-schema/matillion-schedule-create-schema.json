@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matillion/main/json-schema/matillion-schedule-create-schema.json",
+  "title": "ScheduleCreate",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matillion-dpc-schedules-api-openapi.yml#/components/schemas/ScheduleCreate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "cron": {
+      "type": "string"
+    },
+    "pipelineName": {
+      "type": "string"
+    },
+    "environmentName": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "cron",
+    "pipelineName"
+  ]
+}

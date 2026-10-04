@@ -1,0 +1,19 @@
+generated: '2026-10-04'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/matillion-etl-jobs-runs-api-openapi.yml
+skills:
+- file: skills/matillion-run-etl-job.md
+  name: matillion-run-etl-job
+  api: openapi/matillion-etl-jobs-runs-api-openapi.yml
+  operations:
+  - validateEtlJob
+  - runEtlJob
+- file: skills/matillion-launch-pipeline-execution.md
+  name: matillion-launch-pipeline-execution
+  api: openapi/matillion-dpc-pipeline-executions-api-openapi.yml
+  operations:
+  - createPipelineExecution
+  - getPipelineExecutionStatus
+  - getPipelineExecutionSteps
+  - cancelPipelineExecution

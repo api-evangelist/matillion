@@ -1,0 +1,110 @@
+{
+  "@context": {
+    "@vocab": "https://matillion.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "matillion": "https://matillion.com/schema#",
+    "AgentCredentials": "matillion:AgentCredentials",
+    "clientId": {
+      "@id": "matillion:clientId",
+      "@type": "xsd:string"
+    },
+    "clientSecret": {
+      "@id": "matillion:clientSecret",
+      "@type": "xsd:string"
+    },
+    "Agent": "matillion:Agent",
+    "id": {
+      "@id": "matillion:id",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "matillion:name",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "matillion:status",
+      "@type": "xsd:string"
+    },
+    "AgentCreate": "matillion:AgentCreate",
+    "AgentList": "matillion:AgentList",
+    "results": {
+      "@id": "matillion:results",
+      "@container": "@list"
+    },
+    "EnvironmentList": "matillion:EnvironmentList",
+    "Environment": "matillion:Environment",
+    "defaultEnvironment": {
+      "@id": "matillion:defaultEnvironment",
+      "@type": "xsd:boolean"
+    },
+    "EnvironmentCreate": "matillion:EnvironmentCreate",
+    "agentId": {
+      "@id": "matillion:agentId",
+      "@type": "xsd:string"
+    },
+    "PipelineExecutionList": "matillion:PipelineExecutionList",
+    "PipelineExecutionRequest": "matillion:PipelineExecutionRequest",
+    "pipelineName": {
+      "@id": "matillion:pipelineName",
+      "@type": "xsd:string"
+    },
+    "environmentName": {
+      "@id": "matillion:environmentName",
+      "@type": "xsd:string"
+    },
+    "scalarVariables": {
+      "@id": "matillion:scalarVariables"
+    },
+    "PipelineExecutionStatus": "matillion:PipelineExecutionStatus",
+    "PipelineExecution": "matillion:PipelineExecution",
+    "projectId": {
+      "@id": "matillion:projectId",
+      "@type": "xsd:string"
+    },
+    "PipelineExecutionSteps": "matillion:PipelineExecutionSteps",
+    "steps": {
+      "@id": "matillion:steps",
+      "@container": "@list"
+    },
+    "ProjectList": "matillion:ProjectList",
+    "Project": "matillion:Project",
+    "description": {
+      "@id": "matillion:description",
+      "@type": "xsd:string"
+    },
+    "ProjectCreate": "matillion:ProjectCreate",
+    "Schedule": "matillion:Schedule",
+    "cron": {
+      "@id": "matillion:cron",
+      "@type": "xsd:string"
+    },
+    "enabled": {
+      "@id": "matillion:enabled",
+      "@type": "xsd:boolean"
+    },
+    "ScheduleList": "matillion:ScheduleList",
+    "ScheduleCreate": "matillion:ScheduleCreate",
+    "EtlJobRunRequest": "matillion:EtlJobRunRequest",
+    "gridVariables": {
+      "@id": "matillion:gridVariables"
+    },
+    "EtlJobRunResponse": "matillion:EtlJobRunResponse",
+    "success": {
+      "@id": "matillion:success",
+      "@type": "xsd:boolean"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Matillion API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Matillion's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-04) from openapi/matillion-dpc-agents-api-openapi.yml, openapi/matillion-dpc-environments-api-openapi.yml, openapi/matillion-dpc-pipeline-executions-api-openapi.yml.",
+  "dcterms:created": "2026-10-04",
+  "dcterms:source": [
+    "openapi/matillion-dpc-agents-api-openapi.yml",
+    "openapi/matillion-dpc-environments-api-openapi.yml",
+    "openapi/matillion-dpc-pipeline-executions-api-openapi.yml",
+    "openapi/matillion-dpc-projects-api-openapi.yml",
+    "openapi/matillion-dpc-schedules-api-openapi.yml"
+  ]
+}
