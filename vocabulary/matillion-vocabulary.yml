@@ -1,0 +1,160 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/matillion-dpc-agents-api-openapi.yml
+- openapi/matillion-dpc-environments-api-openapi.yml
+- openapi/matillion-dpc-pipeline-executions-api-openapi.yml
+- openapi/matillion-dpc-projects-api-openapi.yml
+- openapi/matillion-dpc-schedules-api-openapi.yml
+vocabulary:
+  name: Matillion Domain Vocabulary
+  description: 'Terms declared by Matillion''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-04'
+  terms:
+  - term: DPC Agents
+    definition: Data Productivity Cloud Agents (hybrid runtime).
+    tags:
+    - Resource Group
+    source: openapi/matillion-dpc-agents-api-openapi.yml
+  - term: DPC Environments
+    definition: Data Productivity Cloud environments (warehouse connection contexts).
+    tags:
+    - Resource Group
+    source: openapi/matillion-dpc-environments-api-openapi.yml
+  - term: DPC Pipeline Executions
+    definition: Launch, inspect, and cancel Data Productivity Cloud pipeline executions.
+    tags:
+    - Resource Group
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml
+  - term: DPC Projects
+    definition: Data Productivity Cloud projects.
+    tags:
+    - Resource Group
+    source: openapi/matillion-dpc-projects-api-openapi.yml
+  - term: DPC Schedules
+    definition: Data Productivity Cloud pipeline schedules.
+    tags:
+    - Resource Group
+    source: openapi/matillion-dpc-schedules-api-openapi.yml
+  - term: ETL Groups & Projects
+    definition: Legacy Matillion ETL groups, projects, and versions.
+    tags:
+    - Resource Group
+    source: openapi/matillion-etl-groups-projects-api-openapi.yml
+  - term: ETL Jobs & Runs
+    definition: Legacy Matillion ETL job execution and validation.
+    tags:
+    - Resource Group
+    source: openapi/matillion-etl-jobs-runs-api-openapi.yml
+  - term: ETL Schedules
+    definition: Legacy Matillion ETL schedules.
+    tags:
+    - Resource Group
+    source: openapi/matillion-etl-schedules-api-openapi.yml
+  - term: ETL Tasks
+    definition: Legacy Matillion ETL task monitoring and control.
+    tags:
+    - Resource Group
+    source: openapi/matillion-etl-tasks-api-openapi.yml
+  - term: AgentCredentials
+    definition: 'Object declared by the contract with fields: clientId, clientSecret.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-agents-api-openapi.yml#/components/schemas/AgentCredentials
+  - term: Agent
+    definition: 'Object declared by the contract with fields: id, name, status.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-agents-api-openapi.yml#/components/schemas/Agent
+  - term: AgentCreate
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-agents-api-openapi.yml#/components/schemas/AgentCreate
+  - term: AgentList
+    definition: 'Object declared by the contract with fields: results.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-agents-api-openapi.yml#/components/schemas/AgentList
+  - term: EnvironmentList
+    definition: 'Object declared by the contract with fields: results.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-environments-api-openapi.yml#/components/schemas/EnvironmentList
+  - term: Environment
+    definition: 'Object declared by the contract with fields: id, name, defaultEnvironment.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-environments-api-openapi.yml#/components/schemas/Environment
+  - term: EnvironmentCreate
+    definition: 'Object declared by the contract with fields: name, agentId.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-environments-api-openapi.yml#/components/schemas/EnvironmentCreate
+  - term: PipelineExecutionList
+    definition: 'Object declared by the contract with fields: results.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml#/components/schemas/PipelineExecutionList
+  - term: PipelineExecutionRequest
+    definition: 'Object declared by the contract with fields: pipelineName, environmentName, scalarVariables.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml#/components/schemas/PipelineExecutionRequest
+  - term: PipelineExecutionStatus
+    definition: 'Object declared by the contract with fields: id, status.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml#/components/schemas/PipelineExecutionStatus
+  - term: PipelineExecution
+    definition: 'Object declared by the contract with fields: id, projectId, status.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml#/components/schemas/PipelineExecution
+  - term: PipelineExecutionSteps
+    definition: 'Object declared by the contract with fields: steps.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-pipeline-executions-api-openapi.yml#/components/schemas/PipelineExecutionSteps
+  - term: ProjectList
+    definition: 'Object declared by the contract with fields: results.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-projects-api-openapi.yml#/components/schemas/ProjectList
+  - term: Project
+    definition: 'Object declared by the contract with fields: id, name, description.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-projects-api-openapi.yml#/components/schemas/Project
+  - term: ProjectCreate
+    definition: 'Object declared by the contract with fields: name, description.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-projects-api-openapi.yml#/components/schemas/ProjectCreate
+  - term: Schedule
+    definition: 'Object declared by the contract with fields: id, name, cron, pipelineName, environmentName, enabled.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-schedules-api-openapi.yml#/components/schemas/Schedule
+  - term: ScheduleList
+    definition: 'Object declared by the contract with fields: results.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-schedules-api-openapi.yml#/components/schemas/ScheduleList
+  - term: ScheduleCreate
+    definition: 'Object declared by the contract with fields: name, cron, pipelineName, environmentName, enabled.'
+    tags:
+    - Object
+    source: openapi/matillion-dpc-schedules-api-openapi.yml#/components/schemas/ScheduleCreate
+  - term: EtlJobRunRequest
+    definition: 'Object declared by the contract with fields: scalarVariables, gridVariables.'
+    tags:
+    - Object
+    source: openapi/matillion-etl-jobs-runs-api-openapi.yml#/components/schemas/EtlJobRunRequest
+  - term: EtlJobRunResponse
+    definition: 'Object declared by the contract with fields: success, id.'
+    tags:
+    - Object
+    source: openapi/matillion-etl-jobs-runs-api-openapi.yml#/components/schemas/EtlJobRunResponse
