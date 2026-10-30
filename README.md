@@ -1,4 +1,4 @@
-# Matillion (matillion)
+# Matillion
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,220 +66,185 @@
 
 Matillion is a data integration and transformation (ETL/ELT) company whose Data Productivity Cloud (DPC) lets teams build, orchestrate, and schedule data pipelines against cloud data warehouses. The DPC API is an OAuth2-secured REST control plane for projects, environments, pipeline executions, schedules, and Agents, while the legacy instance-hosted Matillion ETL API exposes groups, projects, versions, jobs, tasks, and schedules over HTTP Basic auth.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/matillion/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/matillion/refs/heads/main/apis.yml)
+**Areas:** Data Integration · ETL · ELT · Data Pipeline · Cloud Data Warehouse
 
-> **State note (2026):** The Data Productivity Cloud API documentation was rebranded to [docs.maia.ai](https://docs.maia.ai) ("Maia"). The runtime hosts are unchanged — the DPC control plane is still served from `eu1.api.matillion.com/dpc` and `us1.api.matillion.com/dpc`, the OAuth2 token endpoint is still `id.core.matillion.com/oauth/dpc/token` (audience `https://api.matillion.com`), and the legacy Matillion ETL API is still served from the customer's own instance at `https://{instance}/rest/v1`.
+## Matillion on APIs.io
 
-## Tags
+Everything profiled for Matillion is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/matillion/](https://apis.io/providers/matillion/)** — or go straight to one of the APIs or properties below.
 
-- Data Integration
-- ETL
-- ELT
-- Data Pipelines
-- Cloud Data Warehouse
+### APIs (9)
 
-## Timestamps
+- [Matillion DPC Agents API](https://apis.io/apis/matillion/matillion-dpc-agents-api/) — Data Productivity Cloud Agents (hybrid runtime).
+- [Matillion DPC Environments API](https://apis.io/apis/matillion/matillion-dpc-environments-api/) — Data Productivity Cloud environments (warehouse connection contexts).
+- [Matillion DPC Pipeline Executions API](https://apis.io/apis/matillion/matillion-dpc-pipeline-executions-api/) — Launch, inspect, and cancel Data Productivity Cloud pipeline executions.
+- [Matillion DPC Projects API](https://apis.io/apis/matillion/matillion-dpc-projects-api/) — Data Productivity Cloud projects.
+- [Matillion DPC Schedules API](https://apis.io/apis/matillion/matillion-dpc-schedules-api/) — Data Productivity Cloud pipeline schedules.
+- [Matillion ETL Groups & Projects API](https://apis.io/apis/matillion/matillion-etl-groups-projects-api/) — Legacy Matillion ETL groups, projects, and versions.
+- [Matillion ETL Jobs & Runs API](https://apis.io/apis/matillion/matillion-etl-jobs-runs-api/) — Legacy Matillion ETL job execution and validation.
+- [Matillion ETL Schedules API](https://apis.io/apis/matillion/matillion-etl-schedules-api/) — Legacy Matillion ETL schedules.
+- [Matillion ETL Tasks API](https://apis.io/apis/matillion/matillion-etl-tasks-api/) — Legacy Matillion ETL task monitoring and control.
 
-- **Created:** 2026-07-01
-- **Modified:** 2026-07-01
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### DPC Projects
+#### Agentic access (1)
 
-List, create, and delete Data Productivity Cloud projects via the regional DPC control plane (eu1.api.matillion.com/dpc or us1.api.matillion.com/dpc), secured with an OAuth2 client-credentials Bearer JWT. Branches are managed in the UI only and are not exposed as a public API.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://eu1.api.matillion.com/dpc`
+- [Matillion Agentic Access](https://apis.io/agentic-access/matillion/matillion-agentic-access/)
 
-#### Tags
+#### JSON Schema (20)
 
-- Projects
-- Data Productivity Cloud
-- Control Plane
+The data models the API reads and writes.
 
-#### Properties
+- [Agent](https://apis.io/schemas/matillion/matillion-agent/)
+- [AgentCreate](https://apis.io/schemas/matillion/matillion-agent-create/)
+- [AgentCredentials](https://apis.io/schemas/matillion/matillion-agent-credentials/)
+- [AgentList](https://apis.io/schemas/matillion/matillion-agent-list/)
+- [Environment](https://apis.io/schemas/matillion/matillion-environment/)
+- [EnvironmentCreate](https://apis.io/schemas/matillion/matillion-environment-create/)
+- [EnvironmentList](https://apis.io/schemas/matillion/matillion-environment-list/)
+- [EtlJobRunRequest](https://apis.io/schemas/matillion/matillion-etl-job-run-request/)
+- [EtlJobRunResponse](https://apis.io/schemas/matillion/matillion-etl-job-run-response/)
+- [PipelineExecution](https://apis.io/schemas/matillion/matillion-pipeline-execution/)
+- [PipelineExecutionList](https://apis.io/schemas/matillion/matillion-pipeline-execution-list/)
+- [PipelineExecutionRequest](https://apis.io/schemas/matillion/matillion-pipeline-execution-request/)
+- [PipelineExecutionStatus](https://apis.io/schemas/matillion/matillion-pipeline-execution-status/)
+- [PipelineExecutionSteps](https://apis.io/schemas/matillion/matillion-pipeline-execution-steps/)
+- [Project](https://apis.io/schemas/matillion/matillion-project/)
+- [ProjectCreate](https://apis.io/schemas/matillion/matillion-project-create/)
+- [ProjectList](https://apis.io/schemas/matillion/matillion-project-list/)
+- [Schedule](https://apis.io/schemas/matillion/matillion-schedule/)
+- [ScheduleCreate](https://apis.io/schemas/matillion/matillion-schedule-create/)
+- [ScheduleList](https://apis.io/schemas/matillion/matillion-schedule-list/)
 
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### DPC Environments
+Linked-data contexts for the provider's vocabulary.
 
-List and create the environments (warehouse connection contexts) that belong to a Data Productivity Cloud project, on the OAuth2-secured DPC control plane.
+- [Matillion Context](https://apis.io/jsonld/matillion/matillion-context/)
 
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://eu1.api.matillion.com/dpc`
+#### Collections (10)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Environments
-- Data Productivity Cloud
-- Warehouse Connections
+- [Matillion API](https://apis.io/collections/matillion/open-matillion/)
+- [Matillion DPC Agents API](https://apis.io/collections/matillion/open-matillion-dpc-agents-api/)
+- [Matillion DPC Agents DPC Environments API](https://apis.io/collections/matillion/open-matillion-dpc-environments-api/)
+- [Matillion DPC Agents DPC Pipeline Executions API](https://apis.io/collections/matillion/open-matillion-dpc-pipeline-executions-api/)
+- [Matillion DPC Agents DPC Projects API](https://apis.io/collections/matillion/open-matillion-dpc-projects-api/)
+- [Matillion DPC Agents DPC Schedules API](https://apis.io/collections/matillion/open-matillion-dpc-schedules-api/)
+- [Matillion DPC Agents ETL Groups & Projects API](https://apis.io/collections/matillion/open-matillion-etl-groups-projects-api/)
+- [Matillion DPC Agents ETL Jobs & Runs API](https://apis.io/collections/matillion/open-matillion-etl-jobs-runs-api/)
+- [Matillion DPC Agents ETL Schedules API](https://apis.io/collections/matillion/open-matillion-etl-schedules-api/)
+- [Matillion DPC Agents ETL Tasks API](https://apis.io/collections/matillion/open-matillion-etl-tasks-api/)
 
-#### Properties
+#### Governance rules (1)
 
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### DPC Pipeline Executions
+- [Matillion API Rules](https://apis.io/rules/matillion/matillion-rules/)
 
-Launch pipeline executions, list executions for a project, retrieve execution status and step detail, and cancel a running execution (PATCH status CANCELLED). Long-running execution is observed by polling the status endpoint, not by a push transport.
+#### Security (2)
 
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://eu1.api.matillion.com/dpc`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Matillion Authentication](https://apis.io/security/matillion/matillion-authentication/)
+- [Matillion Domain Security](https://apis.io/security/matillion/matillion-domain-security/)
 
-- Pipeline Executions
-- Data Productivity Cloud
-- Orchestration
+#### OAuth scopes (1)
 
-#### Properties
+The permissions the API asks for.
 
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Matillion Scopes](https://apis.io/scopes/matillion/matillion-scopes/)
 
-### DPC Schedules
+#### Plans and pricing (1)
 
-Create, list, read, update, and delete the schedules that trigger pipeline executions for a Data Productivity Cloud project, on the OAuth2-secured DPC control plane.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://eu1.api.matillion.com/dpc`
+- [Matillion Plans Pricing](https://apis.io/plans/matillion/matillion-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Schedules
-- Data Productivity Cloud
-- Automation
+Published request limits.
 
-#### Properties
+- [Matillion Rate Limits](https://apis.io/rate-limits/matillion/matillion-rate-limits/)
 
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### DPC Agents
+What the API costs to run, by operation.
 
-List and register Data Productivity Cloud Agents (the hybrid/customer-hosted runtime that executes pipelines), retrieve an Agent, and read its credentials, on the OAuth2-secured DPC control plane.
+- [Matillion Finops](https://apis.io/finops/matillion/matillion-finops/)
 
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://eu1.api.matillion.com/dpc`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Agents
-- Data Productivity Cloud
-- Hybrid Runtime
-
-#### Properties
-
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### ETL Groups & Projects (legacy)
-
-Manage groups, projects, and versions on the legacy instance-hosted Matillion ETL API (base `https://{instance}/rest/v1`, HTTP Basic auth) — list, read, export, import, create, and delete groups, projects, and version artifacts.
-
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://{instance}/rest/v1`
-
-#### Tags
-
-- Groups
-- Projects
-- Matillion ETL
-- Legacy
-
-#### Properties
-
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### ETL Jobs & Runs (legacy)
-
-Run and validate orchestration/transformation jobs on the legacy instance-hosted Matillion ETL API (base `https://{instance}/rest/v1`, HTTP Basic auth); run accepts scalar and grid variables and returns a task id for polling.
-
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://{instance}/rest/v1`
-
-#### Tags
-
-- Jobs
-- Runs
-- Matillion ETL
-- Legacy
-
-#### Properties
-
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### ETL Tasks (legacy)
-
-Monitor and control task execution on the legacy instance-hosted Matillion ETL API (base `https://{instance}/rest/v1`, HTTP Basic auth) — list running tasks, read a task by id, cancel a task, and page task history.
-
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://{instance}/rest/v1`
-
-#### Tags
-
-- Tasks
-- Monitoring
-- Matillion ETL
-- Legacy
-
-#### Properties
-
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### ETL Schedules (legacy)
-
-Read, export, import, update, and delete schedules on the legacy instance-hosted Matillion ETL API (base `https://{instance}/rest/v1`, HTTP Basic auth).
-
-- **Human URL:** [https://docs.matillion.com](https://docs.matillion.com)
-- **Base URL:** `https://{instance}/rest/v1`
-
-#### Tags
-
-- Schedules
-- Automation
-- Matillion ETL
-- Legacy
-
-#### Properties
-
-- [Documentation](https://docs.matillion.com)
-- [OpenAPI](openapi/matillion-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/matillion.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/matillion.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/matillion)
-- [LinkedIn](https://www.linkedin.com/company/matillion)
 - [Website](https://www.matillion.com)
 - [Documentation](https://docs.matillion.com)
-- [Plans](plans/matillion-plans-pricing.yml)
-- [Rate Limits](rate-limits/matillion-rate-limits.yml)
-- [Fin Ops](finops/matillion-finops.yml)
+- [Getting started](https://docs.matillion.com/data-productivity-cloud/cdc/docs/cdc-getting-started/)
+- [Pricing](https://www.matillion.com/pricing)
+- [Support](https://support.matillion.com/s/)
+- [Changelog](https://roadmap.matillion.com/changelog)
+- [Blog](https://www.matillion.com/blog)
+- [Security](https://www.matillion.com/security)
+- [Trust centre](https://www.matillion.com/trust-center)
+- [Privacy policy](https://www.matillion.com/privacy/)
+- [GitHub](https://github.com/matillion)
+- [Status](https://status.matillion.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 47.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 53.0 |
+| Contract governance | 19.7 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 42.3 |
+| Access clarity | 36.8 |
+
+**Agent readiness 33.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/matillion/](https://apis.io/providers/matillion/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Matillion: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/matillion/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
